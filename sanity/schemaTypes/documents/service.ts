@@ -19,12 +19,20 @@ export const service = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "shortTitle",
+      type: "string",
+      description: 'One word for the segments wheel, for example "Leadership".',
+      validation: (rule) => rule.max(14),
+    }),
+    defineField({
       name: "summary",
       type: "text",
       rows: 3,
       description: "One or two sentences shown on the services list.",
       validation: (rule) => rule.required().max(240),
     }),
+    defineField({ name: "friction", title: "The friction", type: "text", rows: 3 }),
+    defineField({ name: "fix", title: "The fix", type: "text", rows: 3 }),
     defineField({ name: "body", type: "blockContent" }),
     defineField({
       name: "order",

@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Heartland Readiness Assessment | True Heartland Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EFEAD8; --paper-2: #E7E0C9; --ink: #1C2321; --ink-soft: #4A4E44;
+    --wheat: #C79A3E; --barn: #7A2E1D; --steel: #33475A; --line: #CFC5A4; --card: #F7F4E9;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #191712; --paper-2: #211E17; --ink: #EFEAD8; --ink-soft: #C9C3AC;
+      --wheat: #D9AD52; --barn: #B4573A; --steel: #7C93A8; --line: #3A3527; --card: #211E17;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #191712; --paper-2: #211E17; --ink: #EFEAD8; --ink-soft: #C9C3AC;
+    --wheat: #D9AD52; --barn: #B4573A; --steel: #7C93A8; --line: #3A3527; --card: #211E17;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink); font-family: 'Work Sans', system-ui, sans-serif;
+    font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100%;
+  }
+  h1, h2 { font-family: 'Newsreader', Georgia, serif; font-weight: 500; letter-spacing: -0.01em; }
+  a { color: inherit; }
+  .wrap { max-width: 740px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+
+  header.site { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-family: 'Newsreader', serif; font-size: 1.05rem; }
+  .brand span { color: var(--barn); }
+  .back-link { font-size: 0.9rem; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .back-link:hover { color: var(--ink); }
+
+  main { padding: clamp(32px, 6vw, 56px) 0 80px; }
+
+  .assess-head { margin-bottom: 28px; }
+  .kicker { font-size: 0.9rem; color: var(--barn); font-weight: 500; margin-bottom: 10px; }
+  .assess-head h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.2; margin-bottom: 14px; }
+  .assess-head p { color: var(--ink-soft); font-size: 1.02rem; max-width: 58ch; }
+  .assess-head .meta { font-size: 0.85rem; color: var(--ink-soft); opacity: 0.8; margin-top: 10px; }
+
+  .progress-track { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill { height: 100%; background: var(--wheat); width: 0%; transition: width 0.3s ease; }
+  .progress-label { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 30px; display: flex; justify-content: space-between; }
+
+  .quiz-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    padding: clamp(24px, 5vw, 40px); min-height: 220px;
+  }
+  .q-section { font-size: 0.82rem; color: var(--barn); text-transform: none; margin-bottom: 10px; font-weight: 500; }
+  .q-text { font-size: 1.15rem; font-family: 'Newsreader', serif; font-weight: 500; margin-bottom: 24px; max-width: 56ch; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    text-align: left; padding: 14px 18px; border: 1px solid var(--line); border-radius: 4px;
+    background: var(--paper); color: var(--ink); font-family: 'Work Sans', sans-serif; font-size: 0.98rem;
+    cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .option-btn:hover { border-color: var(--wheat); }
+  .option-btn.selected { border-color: var(--wheat); background: color-mix(in srgb, var(--wheat) 16%, var(--paper)); font-weight: 500; }
+  .rq-input {
+    width: 260px; max-width: 100%; padding: 12px 14px; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 4px; color: var(--ink); font-family: 'Work Sans', sans-serif; font-size: 1rem;
+  }
+  .rq-hint { font-size: 0.85rem; color: var(--ink-soft); margin-top: 10px; }
+
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+  .nav-btn { padding: 12px 22px; border-radius: 3px; font-size: 0.95rem; font-family: 'Work Sans', sans-serif; cursor: pointer; border: none; }
+  .nav-btn.back { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+  .nav-btn.next { background: var(--barn); color: #F7F4E9; font-weight: 500; }
+  .nav-btn.next:disabled { opacity: 0.4; cursor: not-allowed; }
+  .nav-btn.skip { background: none; border: none; color: var(--ink-soft); text-decoration: underline; font-size: 0.85rem; margin-left: 12px; }
+
+  .result-panel { margin-top: 8px; }
+  .gauge-wrap { text-align: center; margin-bottom: 4px; }
+  .gauge-score { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-soft); margin-top: -18px; }
+  .gauge-caption { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin-top: 2px; }
+  .result-tier { font-family: 'Newsreader', serif; font-style: italic; font-weight: 500; font-size: 2rem; text-align: center; margin: 4px 0 8px; }
+  .result-tier.risk { color: var(--barn); }
+  .result-tier.building { color: var(--wheat); }
+  .result-tier.ready { color: var(--steel); }
+  .result-sub { text-align: center; color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 28px; }
+  .result-desc, .result-impact, .result-narrative { font-size: 1.02rem; color: var(--ink); margin-bottom: 18px; max-width: 62ch; }
+  .result-impact { padding: 18px 20px; background: var(--card); border-left: 3px solid var(--barn); border-radius: 3px; }
+  .result-tier.ready ~ .result-impact { border-left-color: var(--steel); }
+
+  .breakdown { margin: 32px 0; }
+  .breakdown h3 { font-family: 'Newsreader', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 16px; }
+  .cat-row { margin-bottom: 16px; }
+  .cat-row-head { display: flex; justify-content: space-between; font-size: 0.92rem; margin-bottom: 6px; }
+  .cat-row-head .cat-name { font-weight: 500; }
+  .cat-row-head .cat-tag { color: var(--ink-soft); font-size: 0.85rem; }
+  .cat-bar-track { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .cat-bar-fill { height: 100%; border-radius: 4px; }
+  .cat-bar-fill.risk { background: var(--barn); }
+  .cat-bar-fill.building { background: var(--wheat); }
+  .cat-bar-fill.ready { background: var(--steel); }
+
+  .priorities-block { margin: 32px 0; }
+  .priorities-block h3 { font-family: 'Newsreader', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 4px; }
+  .priorities-block .block-caption { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 18px; }
+  .priority-item { display: flex; gap: 14px; margin-bottom: 18px; align-items: flex-start; }
+  .priority-num { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.4rem; color: var(--barn); flex-shrink: 0; width: 26px; line-height: 1.3; }
+  .priority-cat { font-weight: 500; font-size: 0.98rem; margin-bottom: 3px; }
+  .priority-reason { color: var(--ink-soft); font-size: 0.95rem; }
+  .priority-score { color: var(--ink-soft); font-weight: 400; font-size: 0.85rem; margin-left: 8px; }
+  .priority-reasons { margin: 4px 0 0; padding-left: 18px; color: var(--ink-soft); font-size: 0.95rem; }
+  .priority-reasons li { margin-bottom: 6px; }
+
+  .chart-block { margin: 36px 0; }
+  .chart-block h3 { font-family: 'Newsreader', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 6px; }
+  .chart-block .block-caption { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 16px; max-width: 56ch; }
+  .chart-svg-wrap { display: flex; justify-content: center; }
+  .zone-label { font-size: 9.5px; font-family: 'Work Sans', sans-serif; }
+  .zone-label.active { font-weight: 600; }
+  .axis-label { font-size: 10.5px; fill: var(--ink-soft); font-family: 'Work Sans', sans-serif; }
+  .radar-label { font-size: 10.5px; fill: var(--ink-soft); font-family: 'Work Sans', sans-serif; }
+  .zone-callout { text-align: center; font-size: 0.95rem; margin-top: 6px; max-width: 52ch; margin-left: auto; margin-right: auto; color: var(--ink); }
+  .zone-callout b { color: var(--barn); }
+
+  .value-block { margin: 32px 0; padding: 22px clamp(18px, 4vw, 26px) 26px; background: var(--card); border: 1px solid var(--line); border-radius: 6px; }
+  .value-block h3 { font-family: 'Newsreader', serif; font-size: 1.2rem; font-weight: 500; margin-bottom: 4px; }
+  .value-block .block-caption { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 20px; max-width: 56ch; }
+  .value-row { margin-bottom: 16px; }
+  .value-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.92rem; margin-bottom: 6px; }
+  .value-row-head .value-label { font-weight: 500; }
+  .value-row-head .value-amount { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.1rem; white-space: nowrap; }
+  .value-bar-track { height: 10px; background: var(--line); border-radius: 5px; overflow: hidden; }
+  .value-bar-fill { height: 100%; border-radius: 5px; }
+  .value-bar-fill.current { background: var(--barn); }
+  .value-bar-fill.potential { background: var(--steel); }
+  .value-gap-note { font-size: 0.98rem; margin-top: 16px; }
+  .value-gap-note b { color: var(--barn); }
+  .value-sources { font-size: 0.78rem; color: var(--ink-soft); margin-top: 16px; }
+  .value-sources a { color: var(--steel); }
+
+  .result-disclaimer { font-size: 0.82rem; color: var(--ink-soft); margin-top: 8px; max-width: 62ch; }
+  .result-disclaimer .src { display: block; margin-top: 6px; opacity: 0.75; }
+  .result-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; align-items: center; }
+  .btn-primary-lg {
+    background: var(--barn); color: #F7F4E9; padding: 13px 24px; border-radius: 3px; text-decoration: none;
+    font-size: 0.98rem; font-weight: 500; display: inline-block; border: none; cursor: pointer;
+  }
+  .btn-secondary-lg {
+    text-decoration: none; color: var(--ink); font-size: 0.95rem; border-bottom: 1px solid var(--wheat);
+    padding-bottom: 2px; background: none; border-top: none; border-left: none; border-right: none;
+    cursor: pointer; font-family: 'Work Sans', sans-serif;
+  }
+  .btn-tertiary { background: none; border: none; color: var(--ink-soft); font-size: 0.88rem; text-decoration: underline; cursor: pointer; font-family: 'Work Sans', sans-serif; }
+
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0; }
+  footer .wrap { font-size: 0.85rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">True Heartland <span>Consulting</span></div>
+    <a class="back-link" href="/">&larr; Back to the site</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="assess-head" id="assessHead">
+      <div class="kicker">Free diagnostic</div>
+      <h1>The Heartland Readiness Assessment</h1>
+      <p>A real look across the parts of the business that actually drive its value: leadership, financials, sales and marketing, operations, people, legal, and growth planning. About fifteen minutes, seven categories, scored and weighted. You'll get your Readiness Score, your top priorities, and a ballpark value range, before we've even spoken.</p>
+      <div class="meta">Answer honestly. Nothing here is saved anywhere unless you choose to send it.</div>
+    </div>
+
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label"><span id="progressLabel">Step 1</span><span id="sectionLabel"></span></div>
+
+    <div class="quiz-card" id="quizCard"></div>
+
+    <div class="quiz-nav" id="quizNav">
+      <div>
+        <button class="nav-btn back" id="backBtn" onclick="goBack()">Back</button>
+        <button class="nav-btn skip" id="skipBtn" onclick="goNext()">Skip this one</button>
+      </div>
+      <button class="nav-btn next" id="nextBtn" onclick="goNext()" disabled>Next</button>
+    </div>
+
+    <div class="result-panel" id="resultPanel" hidden></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">True Heartland Consulting, LLC. This tool gives a directional read, not a formal valuation or appraisal.</div>
+</footer>
+
+<script>
+var steps = [
+  { id: 'owners', section: 'About the business', type: 'select', scored: false,
+    q: 'How many owners and outside investors does the company have?',
+    options: ['One owner, no outside investors','One owner, with outside investors','Two owners','Three or more owners','Multiple owners, plus outside investors'] },
+  { id: 'industry', section: 'About the business', type: 'select', scored: false,
+    q: 'What industry best describes the business?',
+    options: ['Professional services & consulting','Healthcare & wellness','Manufacturing & industrial','Retail & e-commerce','Food, beverage & distribution','Construction & trades','Technology & software','Other'] },
+  { id: 'model', section: 'About the business', type: 'select', scored: false,
+    q: 'Is the business primarily product-based or service-based?',
+    options: ['Product-based','Service-based','A mix of both'] },
+  { id: 'revenue_range', section: 'About the business', type: 'select', scored: false,
+    q: 'Roughly what is annual revenue?',
+    options: ['Under $1M','$1M to $2.5M','$2.5M to $5M','$5M to $10M','$10M to $20M','$20M to $30M','$30M to $40M','$40M to $50M','Over $50M'] },
+
+  { id: 'two_week', section: 'Leadership & dependency', cat: 'leadership', type: 'select', scored: true,
+    q: "Could the business run normally for 30 days if you didn't check in at all?",
+    options: ['Never','Rarely, only for a day or two','Sometimes, if nothing goes wrong','Usually, with occasional check-ins','Yes, easily, it runs the same without me'] },
+  { id: 'workflows', section: 'Leadership & dependency', cat: 'leadership', type: 'select', scored: true,
+    q: 'Could a new hire follow your top three workflows using only written instructions, without needing to ask you questions?',
+    options: ["No, it's all in my head",'A little is written down, but mostly not','Partially written down, with some gaps','Mostly documented, some gaps remain','Fully documented, a new hire could follow it'] },
+  { id: 'bench', section: 'Leadership & dependency', cat: 'leadership', type: 'select', scored: true,
+    q: 'Is there a second layer of leadership below you who can make decisions?',
+    options: ['No','One person, but only for a narrow area','One person who can make real decisions','A small team that can make real decisions','A full layer, C-suite through director'] },
+  { id: 'backup_people', section: 'Leadership & dependency', cat: 'leadership', type: 'select', scored: true,
+    q: 'Besides you, how many people could step in and run day-to-day operations tomorrow?',
+    options: ['No one','One person, informally, in a pinch','One person, reliably','Two or three people','A full team that already does this'] },
+  { id: 'hours', section: 'Leadership & dependency', cat: 'leadership', type: 'select', scored: true,
+    q: 'How many hours a week do you personally work in the business?',
+    options: ['60 or more','50 to 60','45 to 50','40 to 45','Under 40'] },
+
+  { id: 'outside_review', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'Are your financials reviewed by an outside party?',
+    options: ['Never','Rarely, only when required','Annually','Twice a year or on major changes','Regularly, and audit-ready'] },
+  { id: 'financial_speed', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'How quickly can you produce accurate monthly financials after month-end?',
+    options: ['Over a month','3-4 weeks','1-2 weeks','Weekly'] },
+  { id: 'margin_trend', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'How has gross margin trended over the last three years?',
+    options: ['Declining','Roughly flat, trending down slightly','Flat','Growing slowly','Growing strongly'] },
+  { id: 'recurring_revenue', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'What share of revenue is recurring or under contract, rather than one-time?',
+    options: ['Under 10%','10% to 25%','25% to 40%','40% to 70%','Over 70%'] },
+  { id: 'revenue_trend', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'Over the last three years, has revenue been growing, flat, or declining?',
+    options: ['Declining','Flat','Growing under 10% a year','Growing 10% to 20% a year','Growing over 20% a year'] },
+
+  { id: 'cash_forecast', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'Do you have a rolling cash-flow forecast that you actually use?',
+    options: ['No forecast at all','I just watch the bank balance','A rough forecast that rarely gets updated','A forecast updated monthly','A rolling forecast, reviewed monthly and used to make decisions'] },
+  { id: 'pricing_review', section: 'Financial health', cat: 'financial', type: 'select', scored: true,
+    q: 'How often do you review pricing and the profitability of each product or service?',
+    options: ['Never','Only when something goes wrong','Every few years','About once a year','At least twice a year, with a plan to fix or drop the weakest offerings'] },
+
+  { id: 'concentration', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'What share of revenue comes from your single largest customer?',
+    options: ['Over 40%','25% to 40%','15% to 25%','10% to 15%','Under 10%'] },
+  { id: 'lead_gen', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'How is new business primarily generated?',
+    options: ["Almost entirely the owner's efforts",'Mostly the owner, with a little outside help','Some marketing, but inconsistent','A repeatable marketing and sales process','A dedicated sales team with a documented pipeline'] },
+  { id: 'churn', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'Do you track customer retention or churn?',
+    options: ['No','Roughly, informally','Yes, but not against a target','Yes, tracked, with a rough target','Yes, tracked regularly against a target'] },
+  { id: 'pipeline_visibility', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'Do you have visibility into the sales pipeline or backlog for the next three to six months?',
+    options: ['No visibility beyond this month','Rough visibility, nothing tracked formally','A pipeline that gets updated periodically','A tracked pipeline, reviewed monthly','A live, accurate pipeline reviewed regularly'] },
+
+  { id: 'sales_process', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'Is your sales process written down, and could it run without you?',
+    options: ['I\'m the main salesperson and nothing is written down','I close most deals, and a few steps are written down','Others sell too, but each person does it their own way','A documented process that most sellers follow','A documented process run by a sales leader or team, with the owner out of the day-to-day'] },
+  { id: 'close_rate', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'Do you know your close rate, and do you work to improve it?',
+    options: ['No idea','A rough sense only','I track it but rarely discuss it','Tracked monthly','Tracked by source and by seller, with a target and a plan'] },
+  { id: 'revenue_per_client', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: 'Do you track revenue per client, and is there a plan to grow it?',
+    options: ['No','Roughly, informally','Tracked, with no plan to grow it','Tracked, with some upsell or cross-sell efforts','Tracked, with a deliberate plan and a target'] },
+  { id: 'marketing_consistency', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: "How consistent and measured is your marketing?",
+    options: ["There's no marketing, new business just shows up","Occasional efforts, with no tracking","Regular activity, but results aren't measured","Regular activity, with results reviewed occasionally","Planned, consistent activity with results measured against goals"] },
+  { id: 'acquisition_cost', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: "Do you know what it costs to win a new customer?",
+    options: ["No idea","A rough sense of total marketing spend, nothing per customer","I could estimate it, but I don't track it","Tracked, but not used to guide spending","Tracked by channel and used to decide where to spend"] },
+  { id: 'marketing_plan', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: "Do you have a written marketing plan and a budget for it?",
+    options: ["No plan and no budget","A budget of sorts, but no written plan","A written plan, but no set budget","A written plan with a budget, reviewed occasionally","A written plan with a budget, reviewed at least quarterly and tied to revenue goals"] },
+  { id: 'online_referrals', section: 'Sales, marketing & customers', cat: 'sales', type: 'select', scored: true,
+    q: "How reliably do your website, online reviews, and customer referrals bring in new business?",
+    options: ["They don't, we have little online presence and no referral effort","A basic website and a few reviews, and referrals happen on their own","A solid website and good reviews, but we don't actively ask for referrals","A solid website, good reviews, and a referral effort that brings in steady leads","A strong online presence and a referral program that produce a meaningful share of new business, tracked by source"] },
+
+  { id: 'tech_systems', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    q: 'Is your core business software current and integrated, or patched together?',
+    options: ['Outdated, disconnected tools','Mostly outdated, a few newer tools','A mix, some integration','Modern, mostly integrated','Fully integrated and built to scale'] },
+  { id: 'capacity', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    q: 'If demand doubled tomorrow, could current systems and staff handle it?',
+    options: ['No','With major strain','With some strain','With minor strain','Yes, comfortably'] },
+  { id: 'process_consistency', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    q: 'Does output quality hold steady regardless of who on the team is doing the work, or does it depend on the person?',
+    options: ["Quality depends heavily on who's doing the work",'Mostly depends on the person, a few things written down','Some procedures exist but are followed inconsistently','Most core processes are documented and followed','Fully documented, followed, and checked for quality'] },
+  { id: 'kpis', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    q: 'Do you track KPIs and review them on a regular schedule?',
+    options: ['No, I go by feel','A few numbers, checked when I think of it','A handful of KPIs, reviewed occasionally','Clear KPIs, reviewed monthly','Clear KPIs with owners and targets, reviewed weekly or monthly'] },
+  { id: 'ai_use', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    q: 'How is your team using AI and modern tools to save time today?',
+    options: ['Not at all','A few people experiment on their own','Some tools are in use, but there\'s no real plan','Used in specific workflows, with some guidelines','Used deliberately across the business, with a plan and guidelines'] },
+  { id: 'supply_chain', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    showIf: function(a) { return a.model === 'Product-based' || a.model === 'A mix of both'; },
+    q: 'How concentrated is your supply chain?',
+    options: ['Highly, one or two key suppliers with no backup','Highly concentrated, with an informal backup','Moderately concentrated','Diversified, with some backups','Diversified, with tested backups'] },
+  { id: 'client_length', section: 'Operations & systems', cat: 'operations', type: 'select', scored: true,
+    showIf: function(a) { return a.model === 'Service-based'; },
+    q: "What's the average length of a client relationship?",
+    options: ['Under 6 months','6 months to 1 year','1 to 2 years','2 to 5 years','Over 5 years'] },
+
+  { id: 'turnover', section: 'People & culture', cat: 'people', type: 'select', scored: true,
+    q: 'How has turnover in key roles looked over the last two years?',
+    options: ["High, we've lost several key people",'Some turnover, more than we\'d like','Some turnover, roughly normal','Low turnover','Very stable team'] },
+  { id: 'key_person_disruption', section: 'People & culture', cat: 'people', type: 'select', scored: true,
+    q: 'If your top two employees left tomorrow, how disruptive would it be?',
+    options: ['Severe, the business would struggle','Significant, we\'d scramble for months','Significant, but we\'d recover','Manageable with effort','Minimal, we could absorb it'] },
+  { id: 'incentive_alignment', section: 'People & culture', cat: 'people', type: 'select', scored: true,
+    q: 'Do any employees besides you have profit-sharing, equity, or another long-term incentive tied to the business?',
+    options: ['No one but me has any stake in the outcome','Occasional bonuses, nothing tied to long-term value','A couple of key people have informal profit-sharing','A formal incentive plan for key roles','Real equity or long-term incentive for key leaders'] },
+  { id: 'role_clarity', section: "People & culture", cat: 'people', type: 'select', scored: true,
+    q: "Are roles, responsibilities, and expectations written down for each position?",
+    options: ["No, people figure it out as they go","A few roles have informal expectations","Some roles are defined, others are not","Most roles have written responsibilities and expectations","Every role has written responsibilities, goals, and a regular review"] },
+  { id: 'onboarding', section: "People & culture", cat: 'people', type: 'select', scored: true,
+    q: "How structured is training and onboarding for new hires?",
+    options: ["No process, people learn by watching","Informal, depends on who has time","A few documented steps, applied inconsistently","A documented plan that most new hires follow","A structured plan with check-ins and measured results"] },
+
+  { id: 'contracts', section: 'Legal & risk', cat: 'legal', type: 'select', scored: true,
+    q: 'Are contracts with customers, vendors, and employees in writing and current?',
+    options: ['Mostly informal','A few are in writing, most aren\'t','Some in writing','Most in writing','All in writing and reviewed regularly'] },
+  { id: 'compliance', section: 'Legal & risk', cat: 'legal', type: 'select', scored: true,
+    q: 'Any pending litigation, regulatory issues, or unreviewed compliance gaps?',
+    options: ['Yes, something significant','Yes, but relatively minor','Some minor issues',"None known, but we haven't checked closely","None, and we've actively verified"] },
+  { id: 'ip_ownership', section: 'Legal & risk', cat: 'legal', type: 'select', scored: true,
+    q: "Are the business's key intangibles, trademarks, formulas, client lists, software, licenses, actually owned by the business and documented, or informally tied to you personally?",
+    options: ['Informally tied to me personally','Mostly informal, a couple of things documented','Some formal, most still informal','Mostly formal and owned by the business','Fully formal, documented, and owned by the business'] },
+  { id: 'insurance', section: "Legal & risk", cat: 'legal', type: 'select', scored: true,
+    q: "Is your insurance coverage reviewed regularly against the real risks of the business?",
+    options: ["I'm not sure what coverage we have","Basic required coverage only, rarely reviewed","Coverage in place, but not reviewed in over three years","Reviewed every one to three years with a broker or advisor","Reviewed at least annually with an advisor, including liability, cyber, and key-person coverage"] },
+  { id: 'corporate_records', section: "Legal & risk", cat: 'legal', type: 'select', scored: true,
+    q: "Are ownership records, licenses, and corporate filings current and organized?",
+    options: ["I'm not sure where they are","Some exist, but many are out of date","Mostly current, but scattered across places","Current and kept in one organized place","Current, organized, and reviewed with an attorney or CPA each year"] },
+
+  { id: 'strategic_plan', section: 'Growth & exit planning', cat: 'growth', type: 'select', scored: true,
+    q: 'Do you have a written strategic plan you actually revisit?',
+    options: ['No written plan','Ideas in my head, nothing written','Written but rarely used','Reviewed occasionally','Reviewed quarterly'] },
+  { id: 'continuity_plan', section: 'Growth & exit planning', cat: 'growth', type: 'select', scored: true,
+    q: 'If something happened to you tomorrow, is there a documented plan for who runs things?',
+    options: ['No plan at all','People would figure it out, nothing planned','An informal idea','A written outline','A full, funded plan'] },
+  { id: 'sale_readiness_docs', section: 'Growth & exit planning', cat: 'growth', type: 'select', scored: true,
+    q: 'How close are you to having a clean, organized set of documents, financials, org chart, contracts, cap table, ready to hand a buyer or lender?',
+    options: ['Nothing prepared','A few things exist, mostly outdated','Some pieces exist but scattered','Most of it organized','A complete, buyer-ready set'] },
+  { id: 'advisory_team', section: "Growth & exit planning", cat: 'growth', type: 'select', scored: true,
+    q: "Do you have outside advisors (CPA, attorney, financial advisor) who understand your goals for the business and meet with you at least once a year?",
+    options: ["No, I only call someone when something breaks","I have a CPA for taxes and nothing beyond that","I have advisors, but they don't know my goals for the business","Advisors who know my goals, and we talk occasionally","A coordinated advisory team that knows my goals and meets with me at least once a year"] },
+  { id: 'owner_goals', section: "Growth & exit planning", cat: 'growth', type: 'select', scored: true,
+    q: "Do you know what the business needs to provide for you, or be worth to you, when you step back?",
+    options: ["I haven't thought about it","A general idea, no numbers","A rough number I haven't tested","A specific number, reviewed with a financial advisor","A specific number and a written plan I review each year"] },
+  { id: 'exit_intent', section: 'Growth & exit planning', type: 'select', scored: false,
+    q: "What's your ideal timeline and outcome?",
+    options: ['Sell to a third party in the next one to three years','Pass the business to family or an internal successor','Keep running it indefinitely, just want it running better','Not sure yet'] },
+  { id: 'successor_dev', section: 'Growth & exit planning', type: 'select', scored: false,
+    showIf: function(a) { return a.exit_intent === 'Pass the business to family or an internal successor'; },
+    q: 'Has that successor been identified, and are they actively being developed for the role?',
+    options: ['No','Identified, but not being developed yet','Being actively developed'] },
+  { id: 'valued_recently', section: 'Growth & exit planning', type: 'select', scored: false,
+    showIf: function(a) { return a.exit_intent === 'Sell to a third party in the next one to three years'; },
+    q: 'Have you had the business informally valued in the last two years?',
+    options: ['No','Yes'] },
+
+  { id: 'ebitda', section: 'Your numbers', type: 'number', scored: false,
+    q: 'Optional: roughly what is annual EBITDA or owner profit? This lets us show a dollar range instead of just a percentage.',
+    placeholder: 'e.g. 800000' },
+  { id: 'earnings_type', section: 'Your numbers', type: 'select', scored: false,
+    showIf: function(a) { return a.ebitda !== undefined && a.ebitda !== ''; },
+    q: 'Does that number include your own salary added back in, or is it after paying yourself (or a manager) a market-rate salary?',
+    options: ["It includes my own compensation added back (this is my take-home, not a market wage)","It's after paying myself or a manager a normal market-rate salary","Not sure"] },
+  { id: 'revenue_actual', section: 'Your numbers', type: 'number', scored: false,
+    q: 'Optional: roughly what is actual annual revenue, in dollars? This helps us sanity-check margin.',
+    placeholder: 'e.g. 4500000' },
+
+  { id: 'name', section: 'Get your results', type: 'text', scored: false, required: true,
+    q: "Last step. What's your name?",
+    placeholder: 'Your name' },
+  { id: 'email', section: 'Get your results', type: 'email', scored: false, required: true,
+    q: 'And the best email to send your results to?',
+    placeholder: 'you@company.com' }
+];
+
+var categoryMeta = {
+  leadership: { name: 'Leadership & Dependency', short: 'Leadership' },
+  financial: { name: 'Financial Health', short: 'Financial' },
+  sales: { name: 'Sales, Marketing, & Customer Concentration', short: 'Sales & Mktg' },
+  operations: { name: 'Operations & Systems', short: 'Operations' },
+  people: { name: 'People & Culture', short: 'People' },
+  legal: { name: 'Legal & Risk', short: 'Legal' },
+  growth: { name: 'Growth & Exit Planning', short: 'Growth' }
+};
+
+var growthAxisCats = ['sales', 'growth'];
+var capacityAxisCats = ['leadership', 'financial', 'operations', 'people', 'legal'];
+
+// Internal weighting: how much each category counts toward the overall score, out of
+// 100. Weights also rank the priorities: the more a category's weight, the more a gap in
+// it costs the overall score. This weighting is our own editorial judgment, not a
+// published external figure, and isn't shown to the client directly.
+var categoryWeights = {
+  leadership: 17.5,
+  financial: 17.5,
+  sales: 15,
+  operations: 15,
+  people: 15,
+  legal: 5,
+  growth: 15
+};
+
+// Base multiple by EBITDA size band, from the IBBA & M&A Source Market Pulse Q4 2025
+// survey (closed lower-middle-market and Main Street deals). Bands under $2M reflect
+// Seller's Discretionary Earnings (SDE) multiples; bands at or above $2M reflect EBITDA
+// multiples, consistent with how that survey reports them.
+function sizeBandMultiple(ebitda) {
+  if (ebitda < 500000) return 2.0;
+  if (ebitda < 1000000) return 3.0;
+  if (ebitda < 2000000) return 3.3;
+  if (ebitda < 5000000) return 4.1;
+  return 5.5;
+}
+
+// Directional industry tilt on the base multiple, derived from the relative spread of
+// published 2026 industry EBITDA-multiple benchmarks (Icon Business Advisors, FISART).
+// This is our own simplification of a range into a single adjustment, not a
+// sub-industry-specific figure, and is disclosed as such wherever it's shown.
+var industryTilt = {
+  'Technology & software': 0.20,
+  'Healthcare & wellness': 0.15,
+  'Professional services & consulting': 0.05,
+  'Manufacturing & industrial': 0.00,
+  'Construction & trades': -0.05,
+  'Retail & e-commerce': -0.15,
+  'Food, beverage & distribution': -0.20,
+  'Other': 0.00
+};
+
+function fmtMoney(n) {
+  n = Math.round(n);
+  var sign = n < 0 ? '-' : '';
+  n = Math.abs(n);
+  if (n >= 1000000) {
+    var m = (n / 1000000);
+    return sign + '$' + (m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)) + 'M';
+  }
+  return sign + '$' + n.toLocaleString();
+}
+
+var industryNotes = {
+  'Professional services & consulting': "In professional services, buyers pay closest attention to whether client relationships live with the firm or with one person.",
+  'Healthcare & wellness': 'In healthcare and wellness, buyers weigh compliance, licensure, and provider dependency heavily, on top of the usual financial picture.',
+  'Manufacturing & industrial': 'In manufacturing, equipment condition, supply chain concentration, and documented processes carry particular weight.',
+  'Retail & e-commerce': 'In retail and e-commerce, customer acquisition cost, repeat-purchase rate, and supplier concentration are usually the first things scrutinized.',
+  'Food, beverage & distribution': 'In food, beverage, and distribution, margin stability and key account concentration tend to drive the conversation.',
+  'Construction & trades': 'In construction and trades, backlog quality, licensing, and key-person relationships with GCs or clients are usually front and center.',
+  'Technology & software': 'In technology, recurring revenue quality and how much of the codebase or client relationships live with one founder matter most.',
+  'Other': "Every industry has its own version of this. We'll get specific to yours on the call."
+};
+
+var priorityReasons = {
+  two_week: [
+    "You said the business couldn't run for 30 days without you checking in at all. The business is too owner dependent.",
+    "You said the business could only run a day or two without you. Significant change is needed to reduce the business’ dependency on you.",
+    "You said the business can sometimes run for 30 days without you if nothing goes wrong. This is a good sign, but there still is work to do.",
+    "You said the business usually runs for 30 days without you with occasional check-ins. You are getting close to business autonomy which is a core objective.",
+    "You said the business runs the same for 30 days without you. This is a great achievement and will allow you to focus on other core business needs. This needs to be maintained at all costs as other business needs are addressed."
+  ],
+  workflows: [
+    "You said your top workflows exist only in your head, a new hire couldn't follow them without asking you directly.",
+    "You said almost none of your top workflows are written down, a new hire would still need you constantly.",
+    "You said your top workflows are only partially written down, with some gaps, a new hire would still need you often.",
+    "You said your top workflows are mostly documented, with a few gaps left.",
+    "You said your top workflows are fully documented. This is a significant value add for growth readiness, and puts you in a great position for continued operations or an eventual succession."
+  ],
+  bench: [
+    "You said there's no second layer of leadership below you, every decision still routes through one person.",
+    "You said one person below you handles a narrow area, nothing broader, still a single point of failure everywhere else.",
+    "You said one person below you can make decisions, a single point of failure.",
+    "You said a small team below you can make decisions, progress, but still room for improvement.",
+    "You said there's a full leadership layer below you. This a solid foundation to build on and one that we want to protect as other area of the business are addressed."
+  ],
+  backup_people: [
+    "You said no one besides you could run day-to-day operations tomorrow.",
+    "You said only one person, informally, could step in tomorrow in a pinch.",
+    "You said one person could reliably step in tomorrow, still a single point of failure.",
+    "You said two or three people could step in tomorrow, a strong foundation.",
+    "You said a full team already runs day-to-day operations without you."
+  ],
+  hours: [
+    "You said you're personally working 60 or more hours a week in the business. A work load at this level can make it challenging to address other core business deficiencies.",
+    "You said you're working 50 to 60 hours a week which can makes it challenging to make operational improvements.",
+    "You said you're working 45 to 50 hours a week. This can be a challenge but with excellent time management and prioritization operational enhancements are feasible",
+    "You said you're working 40 to 45 hours a week. With an organized schedule, we can tackle operational enhancements",
+    "You said you're working under 40 hours a week, a sign of a business that will allow you to focus on operational enhancements."
+  ],
+  outside_review: [
+    "You said your financials are never reviewed by an outside party. Buyers will want independent verification and up to date data.",
+    "You said outside review happens rarely, only when required. Buyers will want independent verification and up to date data.",
+    "You said financials are reviewed annually. This is acceptable with updates when needed.",
+    "You said financials are reviewed twice. This is essential if you are actively planning to sell the business within the next year.",
+    "You said financials are reviewed regularly and audit-ready. This is exactly what a diligence team wants to see and will allow you to be prepared if a LOI is presented."
+  ],
+  financial_speed: [
+    "You said you can't produce accurate monthly financials, or it takes over a month. This timeline makes it challenging to make accurate, time sensitive, decisions for the business.",
+    "You said monthly financials take three to four weeks. This timeline makes it challenging to make accurate, time sensitive, decisions for the business.",
+    "You said monthly financials take one to two weeks. This allows for better visibility than monthly, but having numbers weekly allows for real time improvements.",
+    "You said monthly financials are ready within days, which is an operational strength."
+  ],
+  margin_trend: [
+    "You said gross margin has been declining over the last three years, that trend gets scrutinized closely in any diligence and is a red flag if the cause cannot being identified and promptly addressed.",
+    "You said gross margin has been roughly flat but trending down slightly. It is imperative to understand the cause of decline and work on a feasible action plan to resolve.",
+    "You said gross margin has been flat. This is often an issue with leadership capacity and by addressing proper planning and operational deficiencies can be turned around in quarters, not years.",
+    "You said gross margin has been growing. It is important to look at historical data for the business as well as the industry as a whole to determine if you are underperforming or outpacing your industry.",
+    "You said gross margin has been growing strongly. Strong growth is ideal but at times can be a first world problem for business owners. If it is further creating owner dependency it can be a negative. If it is allowing the owner to live their ideal life and prepare for succession, it is a major win."
+  ],
+  recurring_revenue: [
+    "You said under 10% of revenue is recurring or under contract. This can lead to a very fragile business and make it challenging for succession as almost all revenue must be won again on a regular basis. This will also make succession challenging.",
+    "You said 10% to 25% of revenue is recurring. This can lead to a very fragile business and make it challenging for succession as almost all revenue must be won again on a regular basis. This will also make succession challenging.",
+    "You said 25% to 40% of revenue is recurring. This helps by having some financial stability, but does not protect the business in the event of a business disruption,",
+    "You said 40% to 70% of revenue is recurring. This is a healthy level of your revenue to count on each month.",
+    "You said over 70% of revenue is recurring. This is industry leading in most cases and will have a positive impact on continued operations or any succession plan."
+  ],
+  revenue_trend: [
+    "You said revenue has been declining over the last three years. This is a red flag whether you’re succession planning or continuing to operate the business yourself. It is imperative to understand the driving factors behind the decline and promptly address those factors.",
+    "You said revenue has been flat. There are numerous things that cause this but one of the more common ones is the owner having too many core responsibilities than fall on them.",
+    "You said revenue is growing under 10% a year. This can be further evaluated and benchmarked against your industry.",
+    "You said revenue is growing 5% to 10% a year. This can be further evaluated and benchmarked against your industry.",
+    "You said revenue is growing over 10% a year. This can be further evaluated and benchmarked against your industry."
+  ],
+  cash_forecast: [
+    "You said there's no cash-flow forecast at all. This can lead to cash-flow crunches and instability.",
+    "You said you only watch the bank balance, which shows where you are but not what's coming.",
+    "You said you have a rough forecast that rarely gets updated.",
+    "You said the forecast is updated monthly. This is a great start that will allow you to quickly adjust to unexpected operational expenses.",
+    "You said you run a rolling forecast and use it to make decisions. This is a core strength for financially stable businesses."
+  ],
+  pricing_review: [
+    "You said pricing and profitability by offering never get reviewed. This is a significant risk to the business and profitability and should be remedied quickly. It is common to margin erosion when this isn’t evaluated.",
+    "You said pricing only gets reviewed when something goes wrong. This leads to margin erosion and makes it almost impossible to accurately forecast revenue.",
+    "You said pricing gets reviewed every few years. Pricing needs to be reviewed on a regular cadence. At a minimum it should be done anytime cost changes occur or anytime operational expenses fluctuate.",
+    "You said pricing is reviewed about once a year.",
+    "You said pricing and offering profitability are reviewed regularly with a plan to act."
+  ],
+  concentration: [
+    "You said your single largest customer is over 40% of revenue, losing that one account would be an existential risk.",
+    "You said your largest customer is 25% to 40% of revenue. At this level, losing that client could lead to a massive economic downturn to the business.",
+    "You said your largest customer is 15% to 25% of revenue, still worth diversifying.",
+    "You said your largest customer is 10% to 15% of revenue, which is healthy and common across most industries.",
+    "You said your largest customer is under 10% of revenue, which is extremely healthy."
+  ],
+  lead_gen: [
+    "You said new business comes almost entirely from your personal relationships. That business lives and dies with you as the owner and can make it challenging to grow beyond your own personal capacity.",
+    "You said new business is mostly the owner, with a little outside help, but still leans heavily on you. That business lives and dies with you as the owner and can make it challenging to grow beyond your own personal capacity.",
+    "You said marketing exists but is inconsistent, new business is still unpredictable without you pushing it.",
+    "You said there's a repeatable marketing and sales process. This allows business growth to expand beyond the owners capacity.",
+    "You said there's a dedicated sales team with a documented pipeline. This is a genuine strength of your business."
+  ],
+  churn: [
+    "You said you don't track customer retention or churn at all. A lack of visibility into customer lifecycles can be a recipe for disaster.",
+    "You said retention is tracked only roughly and informally. A lack of visibility into customer lifecycles can be a recipe for disaster.",
+    "You said retention is tracked but not against a target. This is a good habit without a benchmark, which typically means clear action steps are not generated and acted on.",
+    "You said retention is tracked with a rough target. This gives you valuable insights on your customer lifecycle but is still lacking the granularity to create an air tight seal around your customers.",
+    "You said retention is tracked regularly against a target. Whether you intend to continue to grow and operate your business or choose to transition out of it, your clarity around customer churn positions you well."
+  ],
+  pipeline_visibility: [
+    "You said there's no visibility into the pipeline beyond this month, meaning growth is essentially unplanned.",
+    "You said pipeline visibility is rough and nothing is tracked formally, this is hard to forecast or defend in diligence.",
+    "You said there's a pipeline that gets updated periodically, which is a good start but commonly falls by the wayside when other aspects of the business consume your attention.",
+    "You said there's a tracked pipeline reviewed monthly. This is a good foundation, but companies that operate out of their CRM on a daily basis perform better than those that don’t.",
+    "You said there's a live, accurate pipeline reviewed regularly. This is a genuine strength to your business and a common practice amongst top performing companies."
+  ],
+  sales_process: [
+    "You said you're the main salesperson and nothing is written down, so business growth is fully dependent on you, which can be a recipe for disaster .",
+    "You said you close most deals and only a few steps are written down, so business growth is almost fully dependent on you, which can be a recipe for disaster.",
+    "You said others sell but each in their own way, so results depend on the person. This can lead to irregular results and cause the business to heavily depend on a salespersons talent, not a reproducible process.",
+    "You said there's a documented process most sellers follow, which is a good base to build on. At scale, gaps can still exist if there are “Mavericks”.",
+    "You said a documented process is run without the owner. This is a strength that is seen among top performing growth leaders."
+  ],
+  close_rate: [
+    "You said you have no idea what your close rate is, so there's no way to tell whether sales is improving. This typically wastes marketing budget and sales inefficiencies that can have a significant impact on revenue and profitability.",
+    "You said you have only a rough sense of your close rate. This typically wastes marketing budget and sales inefficiencies that can have a significant impact on revenue and profitability.",
+    "You said you track close rate but rarely discuss it, so the number isn't driving operational improvements.",
+    "You said close rate is tracked monthly, a good habit that can become more impactful with targets.",
+    "You said close rate is tracked by source and seller with a target. This is an operational advantage for your business."
+  ],
+  revenue_per_client: [
+    "You said you don't track revenue per client, so growth from existing clients goes unmanaged.",
+    "You said you track revenue per client only roughly, which is too loose to act on.",
+    "You said you track revenue per client but have no plan to grow it, so the data isn't being used.",
+    "You said there are some upsell or cross-sell efforts. This is a starting point but needs more detail and consistent implementation to maximizes impact.",
+    "You said you track it with a plan and a target. Using real-time data to drive existing customer revenue creates a more predictable revenue stream."
+  ],
+  marketing_consistency: [
+    "You said there's no marketing and new business just shows up. This leaves growth to chance and makes revenue hard to forecast.",
+    "You said marketing is occasional and untracked. Without consistency or measurement, it's hard to know what is working or to repeat it.",
+    "You said marketing is regular but results aren't measured. Spending without measuring makes it hard to know which efforts to keep and which to cut.",
+    "You said marketing is regular and results are reviewed occasionally. Reviewing on a set schedule against clear goals would turn that into a reliable growth engine.",
+    "You said marketing is planned and measured against goals. This gives the business a predictable source of growth that doesn't depend on you."
+  ],
+  acquisition_cost: [
+    "You said you have no idea what it costs to win a customer. Without that number, it's hard to tell whether growth is profitable.",
+    "You said you know roughly what you spend on marketing but not per customer. Spend without a per-customer cost can hide efforts that lose money.",
+    "You said you could estimate it but don't track it. An estimate that isn't tracked can't show whether the cost is rising or falling.",
+    "You said you track it but don't use it to guide spending. Putting that number to work in budget decisions is where it starts to pay off.",
+    "You said you track the cost by channel and use it to decide where to spend. This is how businesses grow without wasting marketing dollars."
+  ],
+  marketing_plan: [
+    "You said there's no marketing plan and no budget. Marketing becomes reactive, and what gets done depends on how busy the week is.",
+    "You said there's a budget of sorts but no written plan. Money without a plan tends to go to whatever comes up first.",
+    "You said there's a written plan but no set budget. A plan without funding rarely gets carried out.",
+    "You said there's a written plan and budget that are reviewed occasionally. A regular review keeps the plan tied to what the business needs.",
+    "You said there's a written plan and budget, reviewed at least quarterly and tied to revenue goals. This connects marketing directly to growth."
+  ],
+  online_referrals: [
+    "You said your website, reviews, and referrals don't bring in business. Customers often check these first, and a weak presence costs you leads you never see.",
+    "You said you have a basic website and a few reviews, with referrals happening on their own. Leaving referrals to chance means growth depends on luck.",
+    "You said you have a solid website and good reviews but don't ask for referrals. Asking is usually the cheapest source of new customers.",
+    "You said your website, reviews, and referral effort bring in steady leads. Tracking where each customer came from shows what to do more of.",
+    "You said a strong online presence and referral program produce a meaningful share of new business, tracked by source. This is a durable advantage that doesn't rely on the owner."
+  ],
+  tech_systems: [
+    "You said core systems are outdated and disconnected, that leads to friction on every transaction and a flag in diligence.",
+    "You said systems are mostly outdated with a few newer tools, still mostly patched together.",
+    "You said systems are a mix with some integration. functionality has some gaps.",
+    "You said systems are modern and mostly integrated. This is a good foundation.",
+    "You said systems are fully integrated and built to scale. This sets the stage for accelerating growth and capacity."
+  ],
+  capacity: [
+    "You said the business could not handle demand doubling tomorrow. This indicates significant capacity issues that need to be addressed immediately.",
+    "You said doubled demand would cause major strain. Capacity limitation can cause significant stagnation.",
+    "You said doubled demand would cause some strain. This is manageable, but should be addressed before other growth initiatives are implemented.",
+    "You said doubled demand would cause minor strain. Tweaking this now is better than having to overhaul this later.",
+    "You said the business could handle doubled demand comfortably. This is indicative it is time to emphasize the growth side of the business."
+  ],
+  process_consistency: [
+    "You said output quality depends heavily on who's doing the work. This commonly causes operational inefficiencies that if left unaddressed, lead to an inconsistent finished product.",
+    "You said quality mostly depends on the person, with a few things written down. This commonly causes operational inefficiencies that if left unaddressed, lead to an inconsistent finished product.",
+    "You said some procedures exist but are followed inconsistently, the documentation exists, the discipline doesn't yet.",
+    "You said most core processes are documented and followed. Sharpening the pencil on the last few open items gives you a great finished product to build on.",
+    "You said processes are fully documented, followed, and checked for quality, a genuine strength to the brands reputation."
+  ],
+  kpis: [
+    "You said you run the business by feel with no KPIs, so problems show up late and often are missed all together.",
+    "You said you check a few numbers only when you think of it. Problems show up late and often are missed all together.",
+    "You said you have a handful of KPIs reviewed occasionally. The thought process is heading in the right direction but lacks consistency and execution.",
+    "You said KPIs are reviewed monthly. This is a good foundation that should have a more regular cadence to maximize impact.",
+    "You said KPIs have owners and targets and get reviewed regularly, which is a strength of the company."
+  ],
+  ai_use: [
+    "You said your team isn't using AI at all, so time is being spent on work that could be handled more efficiently.",
+    "You said a few people experiment on their own, with no shared approach. This leads to inefficiency and can harm the brand when not properly implemented. Many companies are starting to lose their brand identity and sounding more robotic.",
+    "You said some tools are in use with no real plan, so the gains are scattered.",
+    "You said AI is used in specific workflows with some guidelines, a good start.",
+    "You said AI is used deliberately across the business with a plan and guidelines."
+  ],
+  supply_chain: [
+    "You said your supply chain is highly concentrated with one or two key suppliers and no backup, a single disruption could stop production.",
+    "You said supply is highly concentrated but with an informal backup. This is the start of a continuity plan but needs continued time and attention.",
+    "You said supply is moderately concentrated. This is the start of a continuity plan but needs continued time and attention.",
+    "You said supply is diversified with some backups. A review sequence should be developed as it helps establish cost protection.",
+    "You said supply is diversified with tested backups and is well protected."
+  ],
+  client_length: [
+    "You said the average client relationship lasts under six months, that turnover makes revenue hard to predict and grow.",
+    "You said average client relationships run six months to a year. There is still significant room for improvement to maximize growth and profitability.",
+    "You said average client relationships run one to two years. This is allowing for you to have better financial forecasting, but still a significant churn.",
+    "You said average client relationships run two to five years. This is becoming a strength of the company.",
+    "You said average client relationships run over five years. This is exceptional and will carry a lot of weight in the event of a sale or lead to excellent revenue and profit margins if the company is retained."
+  ],
+  turnover: [
+    "You said you've lost several key people in the last two years, that instability shows up in institutional knowledge and morale alike.",
+    "You said turnover has been higher than you'd like. Culture starts with the owner and you will need to show up consistently to retain the talent that can lead your company.",
+    "You said turnover has been roughly normal, worth watching before it becomes a pattern.",
+    "You said turnover has been low, which typically speaks volumes to you as a leader.",
+    "You said the team has been very stable which speaks volumes to you as a leader."
+  ],
+  key_person_disruption: [
+    "You said losing your top two employees tomorrow would be severe as the business leans on very few people.",
+    "You said it would be significant and you'd scramble for months. This shows the business is too concentrated in too few hands and it needs to be addressed in a timely manner.",
+    "You said it would be significant but you'd recover. It is always better to address problems before they arise when it comes to personnel, especially ones that interact with your customers and vendors on a regular basis.",
+    "You said it would be manageable with effort. This is a sign of having a business that can run without you involved in every decision which allows for growth or succession.",
+    "You said it would be minimal, the business can absorb change."
+  ],
+  incentive_alignment: [
+    "You said no one besides you has any stake in the outcome, every other key person's upside is a paycheck, not the business's success.",
+    "You said there are occasional bonuses, but nothing tied to long-term outcomes driven by your employees.",
+    "You said a couple of key people have informal profit-sharing, a start, but nothing that survives a change in ownership.",
+    "You said there's a formal incentive plan for key roles, leading to alignment towards the success of the business.",
+    "You said key leaders have equity or long-term incentives, exactly what keeps a team together through a crisis, transition or transaction."
+  ],
+  role_clarity: [
+    "You said roles and expectations aren't written down. People are guessing at what is expected of them, and the business depends on you to settle every question.",
+    "You said only a few roles have informal expectations. This leaves accountability unclear and makes it hard to hold people to a standard.",
+    "You said some roles are defined and others are not. Gaps in role clarity tend to show up as dropped tasks and work that lands back on you.",
+    "You said most roles have written responsibilities and expectations. Closing the remaining gaps makes the team easier to grow and easier to hand over.",
+    "You said every role has written responsibilities, goals, and a regular review. This is a strong base for a team that runs without you in every conversation."
+  ],
+  onboarding: [
+    "You said new hires learn by watching, with no process. This makes ramp-up slow and puts quality at the mercy of whoever happens to train them.",
+    "You said onboarding is informal and depends on who has time. Results vary from hire to hire, and your best people lose time to ad hoc training.",
+    "You said a few steps are documented but applied inconsistently. A process that is only sometimes followed leaves the same gaps as having none.",
+    "You said there is a documented plan that most new hires follow. This is a good foundation that gets stronger with check-ins and a way to measure results.",
+    "You said onboarding is structured, with check-ins and measured results. This protects quality as the team grows and reduces dependence on any one trainer."
+  ],
+  contracts: [
+    "You said contracts with customers, vendors, and employees are mostly informal. There is significant risk associated with this and the more documentation in place, the more protected the business is if something goes wrong.",
+    "You said only a few contracts are in writing, most aren't. There is significant risk associated with this and the more documentation in place, the more protected the business is if and when something goes wrong.",
+    "You said some contracts are in writing, a start, but still mostly exposed to risk.",
+    "You said most contracts are in writing, a good starting point but worth the time and effort to clean up.",
+    "You said all contracts are in writing and reviewed regularly. This minimizes risk to the business and is exactly what a buyer or successor wants to see."
+  ],
+  compliance: [
+    "You said there's something significant pending in litigation, regulatory issues, or compliance gaps, that needs resolving before anything else.",
+    "You said there's something pending but it's relatively minor. This is worth resolving as quickly as possible.",
+    "You said there are some minor issues. This is worth resolving as quickly as possible.",
+    "You said none are known, but it hasn't been closely checked, worth an actual review rather than an assumption.",
+    "You said none are known and it's been actively verified internally and by outside counsel"
+  ],
+  ip_ownership: [
+    "You said key intangibles are informally tied to you personally, that has to be cleaned up and formally assigned to the business before any sale or transition. Even if a transaction is not the intention, preparing as though it is the best course of action",
+    "You said intangibles are mostly informal, with a couple of things documented.",
+    "You said some intangibles are formal but most are still informal. Tightening this up will be important, as it is always important to have a succession plan.",
+    "You said most intangibles are formal and owned by the business. It is worth ensuring this is well documented and addressed.",
+    "You said everything is fully formal, documented, and owned by the business, exactly what a buyer wants to see."
+  ],
+  insurance: [
+    "You said you are not sure what insurance coverage the business has. An uncovered loss can threaten the business and any future sale.",
+    "You said coverage is basic and rarely reviewed. Risks change as the business grows, and gaps are usually found after a claim.",
+    "You said coverage is in place but has not been reviewed in over three years. Coverage that no longer matches the business can leave real exposure.",
+    "You said coverage is reviewed every one to three years with an advisor. Moving to an annual review keeps pace with changes in the business.",
+    "You said coverage is reviewed at least annually with an advisor and includes liability, cyber, and key-person protection. This reduces risk to the business and is what a buyer or lender expects to see."
+  ],
+  corporate_records: [
+    "You said you are not sure where ownership records, licenses, and filings are. This creates avoidable delays and risk in any financing, sale, or transition.",
+    "You said some records exist but many are out of date. Out-of-date filings and licenses can cause problems at the moment you need them most.",
+    "You said records are mostly current but scattered. Pulling them into one place is a quick win that saves time in any transaction.",
+    "You said records are current and kept in one organized place. This is a solid base, and a yearly review with an attorney or CPA keeps it that way.",
+    "You said records are current, organized, and reviewed with an attorney or CPA each year. This puts the business in a strong position for diligence."
+  ],
+  strategic_plan: [
+    "You said there's no written strategic plan, decisions are being made without a shared reference point.",
+    "You said plans exist only as ideas in your head, nothing written, nothing a team could align around.",
+    "You said a plan exists but is written and rarely used, it's not actually driving decisions.",
+    "You said the plan is reviewed occasionally. Regular reviews and enhancements is important.",
+    "You said the plan is reviewed quarterly, adjusted when needed, and implemented."
+  ],
+  continuity_plan: [
+    "You said there's no documented plan for who runs things if something happened to you tomorrow, that's a significant risk to the people who depend on the business.",
+    "You said people would figure it out, with nothing planned. This is a significant risk if that day ever comes.",
+    "You said it's an informal idea only, nothing anyone could execute under pressure.",
+    "You said there's a written outline.",
+    "You said there's a full, funded plan. This protects the business and sets you apart from many companies."
+  ],
+  sale_readiness_docs: [
+    "You said nothing is prepared yet in terms of a clean document set, this alone can add months to any future succession planning or transaction.",
+    "You said a few things exist but are mostly outdated, still a lot of work before prepared for diligence.",
+    "You said some pieces exist but are scattered, worth organizing now, before it's urgent.",
+    "You said most of it is organized. Starting to create a data room and organizing all readily available documents and identifying what’s missing.",
+    "You said there's a complete, buyer-ready set ready for review in a data room."
+  ],
+  advisory_team: [
+    "You said you only call an advisor when something breaks. Problems that could have been avoided with planning end up costing more.",
+    "You said you have a CPA for taxes and nothing beyond that. Tax filing looks backward, and planning for growth or a transition needs a wider view.",
+    "You said you have advisors who don't know your goals for the business. Advice is more useful and better coordinated when your advisors know where you are headed.",
+    "You said your advisors know your goals and you talk occasionally. A regular schedule keeps the advice current as the business changes.",
+    "You said you have a coordinated advisory team that knows your goals and meets with you at least once a year. This is a real advantage in any growth or transition plan."
+  ],
+  owner_goals: [
+    "You said you haven't thought about what the business needs to provide for you when you step back. Without a target, it is hard to know what to build toward or when you are ready.",
+    "You said you have a general idea but no numbers. A number turns a hope into something the business can be planned around.",
+    "You said you have a rough number that hasn't been tested. Checking it against your real finances shows whether the plan holds up.",
+    "You said you have a specific number reviewed with a financial advisor. This gives the business a clear target to build toward.",
+    "You said you have a specific number and a written plan you review each year. This clarity makes every other decision about the business easier."
+  ]
+};
+
+var idx = 0;
+var answers = {};
+
+// Escape visitor-typed text before writing it into HTML.
+function esc(v) {
+  return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// Multi-owner wording. Answers are always stored as the standard option text above, so scoring and
+// priority wording never change. When the first question shows two or more owners, these versions are
+// displayed instead. Anything not listed here reads fine for a group and is shown as written.
+var multiOwnerWording = {
+  two_week: { q: "Could the business run normally for 30 days if the owners didn't check in at all?", o: { 4: 'Yes, easily, it runs the same without us' } },
+  workflows: { q: 'Could a new hire follow the top three workflows using only written instructions, without needing to ask the owners questions?', o: { 0: "No, it's all in our heads" } },
+  bench: { q: 'Is there a second layer of leadership below the owners who can make decisions?' },
+  backup_people: { q: 'Besides the owners, how many people could step in and run day-to-day operations tomorrow?' },
+  hours: { q: 'How many hours a week does the typical owner personally work in the business?' },
+  cash_forecast: { o: { 1: 'We just watch the bank balance' } },
+  lead_gen: { o: { 0: "Almost entirely the owners' efforts", 1: 'Mostly the owners, with a little outside help' } },
+  sales_process: { q: 'Is the sales process written down, and could it run without the owners?', o: { 0: 'The owners are the main salespeople and nothing is written down', 1: 'The owners close most deals, and a few steps are written down', 4: 'A documented process run by a sales leader or team, with the owners out of the day-to-day' } },
+  close_rate: { o: { 2: 'We track it but rarely discuss it' } },
+  acquisition_cost: { o: { 2: "We could estimate it, but we don't track it" } },
+  kpis: { o: { 0: 'No, we go by feel', 1: 'A few numbers, checked when we think of it' } },
+  incentive_alignment: { q: 'Do any employees besides the owners have profit-sharing, equity, or another long-term incentive tied to the business?', o: { 0: 'No one but the owners has any stake in the outcome' } },
+  ip_ownership: { q: "Are the business's key intangibles, trademarks, formulas, client lists, software, licenses, actually owned by the business and documented, or informally tied to the owners personally?", o: { 0: 'Informally tied to the owners personally' } },
+  insurance: { o: { 0: "We're not sure what coverage we have" } },
+  corporate_records: { o: { 0: "We're not sure where they are" } },
+  continuity_plan: { q: 'If something happened to one of the owners tomorrow, is there a documented plan for who runs things?' },
+  strategic_plan: { o: { 1: 'Ideas in our heads, nothing written' } },
+  advisory_team: { o: { 0: 'No, we only call someone when something breaks', 1: 'We have a CPA for taxes and nothing beyond that', 2: "We have advisors, but they don't know our goals for the business", 3: 'Advisors who know our goals, and we talk occasionally', 4: 'A coordinated advisory team that knows our goals and meets with us at least once a year' } },
+  owner_goals: { q: 'Do you know what the business needs to provide for each owner, or be worth to the owners, when they step back?', o: { 0: "We haven't thought about it", 2: "A rough number we haven't tested", 4: 'A specific number and a written plan we review each year' } },
+  earnings_type: { q: "Does that number include the owners' salaries added back in, or is it after paying the owners (or managers) a market-rate salary?", o: { 0: "It includes the owners' compensation added back (this is take-home, not a market wage)", 1: "It's after paying the owners or managers a normal market-rate salary" } }
+};
+
+function hasMultipleOwners() {
+  var o = stepById('owners');
+  var i = o ? o.options.indexOf(answers.owners) : -1;
+  return i >= 2;
+}
+
+function displayQuestion(s) {
+  var w = hasMultipleOwners() && multiOwnerWording[s.id];
+  return (w && w.q) ? w.q : s.q;
+}
+
+function displayOption(s, i) {
+  var w = hasMultipleOwners() && multiOwnerWording[s.id];
+  return (w && w.o && w.o[i] !== undefined) ? w.o[i] : s.options[i];
+}
+
+function visibleIndices() {
+  var out = [];
+  for (var i = 0; i < steps.length; i++) {
+    var s = steps[i];
+    if (!s.showIf || s.showIf(answers)) out.push(i);
+  }
+  return out;
+}
+
+function render() {
+  var s = steps[idx];
+  var card = document.getElementById('quizCard');
+  var html = '<div class="q-section">' + s.section + '</div>';
+  html += '<div class="q-text">' + displayQuestion(s) + '</div>';
+
+  if (s.type === 'select') {
+    html += '<div class="options">';
+    s.options.forEach(function (opt, oi) {
+      var sel = answers[s.id] === opt ? ' selected' : '';
+      html += '<button type="button" class="option-btn' + sel + '" onclick="selectOption(\'' + opt.replace(/'/g, "\\'") + '\')">' + displayOption(s, oi) + '</button>';
+    });
+    html += '</div>';
+  } else if (s.type === 'number') {
+    var val = answers[s.id] !== undefined ? answers[s.id] : '';
+    html += '<input type="number" id="stepInput" class="rq-input" placeholder="' + (s.placeholder || '') + '" value="' + esc(val) + '" oninput="onTextInput()">';
+    html += '<div class="rq-hint">Optional. You can skip this and still get your results.</div>';
+  } else if (s.type === 'text' || s.type === 'email') {
+    var val2 = answers[s.id] !== undefined ? answers[s.id] : '';
+    html += '<input type="' + s.type + '" id="stepInput" class="rq-input" placeholder="' + (s.placeholder || '') + '" value="' + esc(val2) + '" oninput="onTextInput()">';
+    html += '<div class="rq-hint">We only use this to send your results and follow up about them.</div>';
+  }
+  card.innerHTML = html;
+
+  var vis = visibleIndices();
+  var pos = vis.indexOf(idx);
+  document.getElementById('progressLabel').textContent = 'Step ' + (pos + 1) + ' of ' + vis.length;
+  document.getElementById('sectionLabel').textContent = s.section;
+  document.getElementById('progressFill').style.width = Math.round((pos / vis.length) * 100) + '%';
+  document.getElementById('backBtn').style.visibility = pos === 0 ? 'hidden' : 'visible';
+  document.getElementById('skipBtn').style.display = (s.type === 'number' && !s.required) ? 'inline' : 'none';
+
+  var nextBtn = document.getElementById('nextBtn');
+  nextBtn.textContent = (pos === vis.length - 1) ? 'See my results' : 'Next';
+  nextBtn.disabled = !isStepValid(s);
+  // Choice questions advance on click, so Next is only shown there when going back to an answered one.
+  nextBtn.style.display = (s.type === 'select' && answers[s.id] === undefined) ? 'none' : '';
+}
+
+function isStepValid(s) {
+  if (s.type === 'select') return answers[s.id] !== undefined;
+  if (s.type === 'text' && s.required) return !!(answers[s.id] && answers[s.id].trim().length > 0);
+  if (s.type === 'email' && s.required) {
+    var v = answers[s.id] || '';
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+  return true;
+}
+
+function onTextInput() {
+  var s = steps[idx];
+  var el = document.getElementById('stepInput');
+  answers[s.id] = el.value;
+  document.getElementById('nextBtn').disabled = !isStepValid(s);
+}
+
+var advanceTimer = null;
+
+// One click on an answer records it and moves on after a short beat, so the choice
+// is visible before the next question appears. Typed and numeric steps still use Next.
+function selectOption(opt) {
+  var s = steps[idx];
+  answers[s.id] = opt;
+  render();
+  if (advanceTimer) clearTimeout(advanceTimer);
+  var stepAtClick = idx;
+  advanceTimer = setTimeout(function () {
+    advanceTimer = null;
+    if (idx === stepAtClick) goNext();
+  }, 250);
+}
+
+function captureNumberInput() {
+  var s = steps[idx];
+  if (s.type === 'number') {
+    var el = document.getElementById('stepInput');
+    if (el && el.value !== '') answers[s.id] = el.value;
+  }
+}
+
+function goNext() {
+  captureNumberInput();
+  var visBefore = visibleIndices();
+  var posBefore = visBefore.indexOf(idx);
+  if (posBefore === visBefore.length - 1) {
+    finish();
+    return;
+  }
+  var oldStepOrder = visBefore[posBefore];
+  var visAfter = visibleIndices();
+  var nextIdx = -1;
+  for (var i = 0; i < steps.length; i++) {
+    if (i > oldStepOrder && visAfter.indexOf(i) !== -1) { nextIdx = i; break; }
+  }
+  if (nextIdx === -1) { finish(); return; }
+  idx = nextIdx;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack() {
+  captureNumberInput();
+  var vis = visibleIndices();
+  var pos = vis.indexOf(idx);
+  if (pos > 0) {
+    idx = vis[pos - 1];
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function stepById(id) {
+  for (var i = 0; i < steps.length; i++) if (steps[i].id === id) return steps[i];
+  return null;
+}
+
+// Position of the chosen option (0 = first/weakest). Used to look up the priority wording.
+function optionIndex(id) {
+  var step = stepById(id);
+  if (!step || !step.scored) return null;
+  var ans = answers[id];
+  if (ans === undefined) return null;
+  return step.options.indexOf(ans);
+}
+
+// Score for one question as a fraction from 0 to 1: the first option earns 0, the last earns 1,
+// and the options in between are spaced evenly. Works for any number of options.
+function scoreOf(id) {
+  var step = stepById(id);
+  var i = optionIndex(id);
+  if (i === null || i < 0) return null;
+  return step.options.length > 1 ? i / (step.options.length - 1) : 0;
+}
+
+function setGauge(score, max) {
+  var cx = 160, cy = 160, r = 120;
+  var frac = Math.max(0, Math.min(1, score / max));
+  var angleDeg = 180 - frac * 180;
+  var rad = angleDeg * Math.PI / 180;
+  var x = cx + r * Math.cos(rad);
+  var y = cy - r * Math.sin(rad);
+  var marker = document.getElementById('gaugeMarker');
+  var needle = document.getElementById('gaugeNeedle');
+  if (marker) { marker.setAttribute('cx', x); marker.setAttribute('cy', y); }
+  if (needle) {
+    needle.setAttribute('x1', cx); needle.setAttribute('y1', cy);
+    needle.setAttribute('x2', cx + (r - 16) * Math.cos(rad));
+    needle.setAttribute('y2', cy - (r - 16) * Math.sin(rad));
+  }
+}
+
+var TIERS = [
+  { n: 1, name: "Owner-Dependent", desc: "The business runs through you. Almost every decision, relationship, and process depends on you being there, which is the biggest thing standing between you and a strong sale or a smooth handoff to family." },
+  { n: 2, name: "Stretched Thin", desc: "Some structure exists, but you are still the answer to most questions. The business strains whenever you step away." },
+  { n: 3, name: "Putting Out Fires", desc: "Much of your time goes to urgent problems. A few areas are solid, but the gaps keep pulling you back into the day-to-day." },
+  { n: 4, name: "Finding Footing", desc: "Real pieces are in place and you can see what comes next. Progress is easy to lose without a plan and a regular rhythm." },
+  { n: 5, name: "Building Structure", desc: "The business is organized in several important areas. The work now is closing the gaps that still route back to you." },
+  { n: 6, name: "Gaining Traction", desc: "More of the business runs on process and people than on you. The remaining weak spots are specific and fixable." },
+  { n: 7, name: "Running Smoother", desc: "The business holds together for stretches without you. The focus shifts from fixing problems to strengthening what works." },
+  { n: 8, name: "Well Built", desc: "This is a well-run business with strong systems and a capable team. A few targeted improvements would make it hard to fault." },
+  { n: 9, name: "Nearly Ready", desc: "The business is close to what a buyer or successor wants to see. The last gaps are usually documentation and consistency." },
+  { n: 10, name: "Exit Ready", desc: "This is a business that can largely run without you in the room. That's rare, and it's worth protecting, whether or not a transition is close." }
+];
+
+// Ten tiers, one per ten points of the overall score (tier 10 includes a perfect 100).
+function tierFor(frac) {
+  var n = Math.min(10, Math.floor(frac * 10) + 1);
+  var t = TIERS[n - 1];
+  return { n: n, name: t.name, desc: t.desc, cls: n <= 3 ? 'risk' : (n <= 7 ? 'building' : 'ready') };
+}
+
+// Category tags in the full breakdown use thirds.
+function catTagFor(frac) {
+  if (frac <= 1 / 3) return { cls: 'risk', label: 'Needs work' };
+  if (frac <= 2 / 3) return { cls: 'building', label: 'Developing' };
+  return { cls: 'ready', label: 'Strong' };
+}
+
+function retake() {
+  idx = 0;
+  answers = {};
+  document.getElementById('resultPanel').hidden = true;
+  document.getElementById('resultPanel').innerHTML = '';
+  document.getElementById('quizCard').style.display = '';
+  document.getElementById('quizNav').style.display = '';
+  document.querySelector('.progress-track').style.display = '';
+  document.getElementById('progressLabel').parentElement.style.display = '';
+  document.getElementById('assessHead').style.display = '';
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function lowestCategories(catTotals, catMax, n) {
+  var cats = Object.keys(categoryMeta).filter(function (c) { return catMax[c] > 0; });
+  cats.sort(function (a, b) { return (catTotals[a] / catMax[a]) - (catTotals[b] / catMax[b]); });
+  return cats.slice(0, n);
+}
+
+// Rank categories by how many points of the 100-point score they are costing:
+// (1 - category percentage) x category weight. Higher weight means a gap matters more.
+function rankedPriorities(catTotals, catMax) {
+  var rows = Object.keys(categoryMeta).filter(function (c) { return catMax[c] > 0; }).map(function (c) {
+    var frac = catTotals[c] / catMax[c];
+    var w = categoryWeights[c] || 0;
+    return { c: c, frac: frac, loss: (1 - frac) * w, w: w };
+  });
+  rows.sort(function (x, y) { return (y.loss - x.loss) || (y.w - x.w); });
+  return rows;
+}
+
+function buildPriorities(catTotals, catMax) {
+  var ranked = rankedPriorities(catTotals, catMax).slice(0, 3);
+  if (ranked.length === 0) return '';
+
+  var heading = ranked[0].frac < 2 / 3 ? ('Your top ' + ranked.length + ' priorities') : 'Where there\'s still room to tighten';
+  var caption = ranked[0].frac < 2 / 3
+    ? 'Ranked by how much each area is costing your score, so the areas that matter most to readiness come first. Each one shows the answers pulling it down.'
+    : 'Nothing here is a red flag, but these are the areas with the most room to improve, ranked by how much they matter to readiness.';
+
+  var html = '<div class="priorities-block"><h3>' + heading + '</h3>' +
+    '<div class="block-caption">' + caption + '</div>';
+
+  ranked.forEach(function (r, i) {
+    var c = r.c;
+    var items = [];
+    steps.forEach(function (st, order) {
+      if (st.cat !== c || !st.scored) return;
+      if (st.showIf && !st.showIf(answers)) return;
+      var sc = scoreOf(st.id), oi = optionIndex(st.id);
+      if (sc !== null && priorityReasons[st.id] && priorityReasons[st.id][oi] !== undefined) {
+        items.push({ sc: sc, order: order, text: priorityReasons[st.id][oi] });
+      }
+    });
+    items.sort(function (x, y) { return (x.sc - y.sc) || (x.order - y.order); });
+    // Every answer at or below the midpoint, up to three, lowest first. If none are that low, the single lowest.
+    var chosen = items.filter(function (x) { return x.sc <= 0.5; }).slice(0, 3);
+    if (chosen.length === 0 && items.length) chosen = [items[0]];
+
+    var lis = chosen.map(function (x) { return '<li>' + x.text + '</li>'; }).join('');
+    html += '<div class="priority-item"><div class="priority-num">' + (i + 1) + '</div>' +
+      '<div><div class="priority-cat">' + categoryMeta[c].name + '<span class="priority-score">' + Math.round(r.frac * 100) + '%</span></div>' +
+      '<ul class="priority-reasons">' + lis + '</ul></div></div>';
+  });
+
+  html += '</div>';
+  return html;
+}
+
+function buildQuadrant(catTotals, catMax) {
+  var gTotal = 0, gMax = 0, cTotal = 0, cMax = 0;
+  growthAxisCats.forEach(function (c) { gTotal += catTotals[c]; gMax += catMax[c]; });
+  capacityAxisCats.forEach(function (c) { cTotal += catTotals[c]; cMax += catMax[c]; });
+  if (gMax === 0 || cMax === 0) return '';
+
+  var growth100 = Math.round((gTotal / gMax) * 100);
+  var capacity100 = Math.round((cTotal / cMax) * 100);
+
+  var zones = {
+    thriving: { label: 'Leverage', color: '#6B7A3A', sub: 'High growth, high capacity', desc: 'The ultimate goal. Your operations scale predictably, your revenue is uncapped, and the business runs efficiently without relying on your personal stamina.' },
+    overextended: { label: 'Burnout', color: '#B4573A', sub: 'High growth, low capacity', desc: 'Your sales are thriving, but your delivery, systems, and people are breaking under the weight. You are one bad month away from an operational crisis.' },
+    underleveraged: { label: 'Stagnant', color: 'var(--steel)', sub: 'Low growth, high capacity', desc: "You have built great systems and have room to scale, but your sales and marketing engine is cold. You are paying for overhead you aren't utilizing." },
+    stalling: { label: 'Danger', color: '#8A8574', sub: 'Low growth, low capacity', desc: 'The business is flatlining on revenue, and the owner is too exhausted or buried in daily fires to fix the structural issues.' }
+  };
+  var zoneKey = capacity100 >= 50
+    ? (growth100 >= 50 ? 'thriving' : 'underleveraged')
+    : (growth100 >= 50 ? 'overextended' : 'stalling');
+  var zone = zones[zoneKey];
+
+  var x0 = 50, x1 = 270, y0 = 20, y1 = 240;
+  var px = x0 + (capacity100 / 100) * (x1 - x0);
+  var py = y1 - (growth100 / 100) * (y1 - y0);
+  var midX = (x0 + x1) / 2, midY = (y0 + y1) / 2;
+
+  function zoneLabelClass(k) { return 'zone-label' + (k === zoneKey ? ' active' : '') + '" fill="' + zones[k].color + '" fill-opacity="' + (k === zoneKey ? '1' : '0.9'); }
+
+  var svg = '<svg viewBox="0 0 320 270" style="width:100%;max-width:380px;display:block;">' +
+    '<rect x="' + x0 + '" y="' + y0 + '" width="' + (x1 - x0) + '" height="' + (y1 - y0) + '" fill="none" stroke="var(--line)" stroke-width="1"/>' +
+    '<line x1="' + midX + '" y1="' + y0 + '" x2="' + midX + '" y2="' + y1 + '" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>' +
+    '<line x1="' + x0 + '" y1="' + midY + '" x2="' + x1 + '" y2="' + midY + '" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>' +
+    '<text x="' + (x0 + 8) + '" y="' + (y0 + 14) + '" class="' + zoneLabelClass('overextended') + '">BURNOUT</text>' +
+    '<text x="' + (x1 - 8) + '" y="' + (y0 + 14) + '" text-anchor="end" class="' + zoneLabelClass('thriving') + '">LEVERAGE</text>' +
+    '<text x="' + (x0 + 8) + '" y="' + (y1 - 8) + '" class="' + zoneLabelClass('stalling') + '">DANGER</text>' +
+    '<text x="' + (x1 - 8) + '" y="' + (y1 - 8) + '" text-anchor="end" class="' + zoneLabelClass('underleveraged') + '">STAGNANT</text>' +
+    '<text x="' + midX + '" y="' + (y1 + 22) + '" text-anchor="middle" class="axis-label">Capacity &#8594;</text>' +
+    '<text x="' + (x0 - 34) + '" y="' + midY + '" text-anchor="middle" class="axis-label" transform="rotate(-90 ' + (x0 - 34) + ' ' + midY + ')">Growth &#8594;</text>' +
+    '<circle cx="' + px + '" cy="' + py + '" r="7" fill="var(--barn)"/>' +
+    '<circle cx="' + px + '" cy="' + py + '" r="12" fill="none" stroke="var(--barn)" stroke-width="1.5" opacity="0.5"/>' +
+    '</svg>';
+
+  var html = '<div class="chart-block"><h3>The Growth &times; Capacity Map</h3>' +
+    '<div class="block-caption">Your revenue growth engine plotted against your operational capacity (leadership, financial, operations, and people infrastructure). The exact zone you land in tells us what to stabilize, optimize, or scale first.</div>' +
+    '<div class="chart-svg-wrap">' + svg + '</div>' +
+    '<p class="zone-callout">You land in <b style="color:' + zone.color + ';">The ' + zone.label + ' Zone</b> <span style="color:var(--ink-soft);">(' + zone.sub.toLowerCase() + ')</span>. ' + zone.desc + '</p>' +
+    '</div>';
+  return html;
+}
+
+function buildRadar(catTotals, catMax) {
+  var cats = Object.keys(categoryMeta).filter(function (c) { return catMax[c] > 0; });
+  var n = cats.length;
+  if (n < 3) return '';
+  var cx = 160, cy = 150, r = 105;
+
+  function pt(i, frac) {
+    var angle = -Math.PI / 2 + i * (2 * Math.PI / n);
+    return { x: cx + r * frac * Math.cos(angle), y: cy + r * frac * Math.sin(angle) };
+  }
+
+  var gridLevels = [0.25, 0.5, 0.75, 1];
+  var gridPolys = gridLevels.map(function (lvl) {
+    var pts = [];
+    for (var i = 0; i < n; i++) { var p = pt(i, lvl); pts.push(p.x + ',' + p.y); }
+    return '<polygon points="' + pts.join(' ') + '" fill="none" stroke="var(--line)" stroke-width="1"/>';
+  }).join('');
+
+  var axisLines = '';
+  var labels = '';
+  for (var i = 0; i < n; i++) {
+    var outer = pt(i, 1);
+    axisLines += '<line x1="' + cx + '" y1="' + cy + '" x2="' + outer.x + '" y2="' + outer.y + '" stroke="var(--line)" stroke-width="1"/>';
+    var labelPt = pt(i, 1.16);
+    var anchor = Math.abs(labelPt.x - cx) < 4 ? 'middle' : (labelPt.x > cx ? 'start' : 'end');
+    labels += '<text x="' + labelPt.x + '" y="' + labelPt.y + '" text-anchor="' + anchor + '" class="radar-label">' + categoryMeta[cats[i]].short + '</text>';
+  }
+
+  var dataPts = [];
+  cats.forEach(function (c, i) {
+    var frac = catTotals[c] / catMax[c];
+    var p = pt(i, frac);
+    dataPts.push(p.x + ',' + p.y);
+  });
+  var dataPolygon = '<polygon points="' + dataPts.join(' ') + '" fill="var(--barn)" fill-opacity="0.22" stroke="var(--barn)" stroke-width="2"/>';
+  var dataDots = cats.map(function (c, i) {
+    var frac = catTotals[c] / catMax[c];
+    var p = pt(i, frac);
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="3.5" fill="var(--barn)"/>';
+  }).join('');
+
+  var svg = '<svg viewBox="-40 0 400 300" style="width:100%;max-width:420px;display:block;">' +
+    gridPolys + axisLines + dataPolygon + dataDots + labels +
+    '</svg>';
+
+  var html = '<div class="chart-block"><h3>Shape of the business</h3>' +
+    '<div class="block-caption">All seven categories on one shape. A well-rounded business fills the web evenly; a spiky shape means real strength in some areas and real exposure in others.</div>' +
+    '<div class="chart-svg-wrap">' + svg + '</div>' +
+    '</div>';
+  return html;
+}
+
+function buildValuation(catTotals, catMax, overallFrac) {
+  var ebitdaNum = parseFloat(answers.ebitda);
+  if (isNaN(ebitdaNum) || ebitdaNum <= 0) return '';
+
+  var sizeMult = sizeBandMultiple(ebitdaNum);
+  var tilt = industryTilt[answers.industry] !== undefined ? industryTilt[answers.industry] : 0;
+  var tiltedMult = sizeMult * (1 + tilt);
+  var spread = 0.15;
+  var multLow = tiltedMult * (1 - spread), multHigh = tiltedMult * (1 + spread);
+
+  var fullLow = ebitdaNum * multLow, fullHigh = ebitdaNum * multHigh;
+  var discountPct = Math.max(0, Math.min(25, Math.round(25 * (1 - overallFrac))));
+  var curLow = fullLow * (1 - discountPct / 100), curHigh = fullHigh * (1 - discountPct / 100);
+  var gapLow = fullLow - curLow, gapHigh = fullHigh - curHigh;
+
+  var lowest = lowestCategories(catTotals, catMax, 2);
+  var lowestNames = lowest.map(function (c) { return categoryMeta[c].name; }).join(' and ');
+
+  var earningsCaveat = '';
+  if (answers.earnings_type === "It includes my own compensation added back (this is my take-home, not a market wage)" && ebitdaNum >= 2000000) {
+    earningsCaveat = ' Since that figure includes your own compensation and this size band is typically priced on true EBITDA (after a market-rate salary), the real range likely sits lower than shown here.';
+  } else if (answers.earnings_type === "It's after paying myself or a manager a normal market-rate salary" && ebitdaNum < 2000000) {
+    earningsCaveat = ' Since that figure already deducts a market-rate salary and this size band is typically priced on Seller\'s Discretionary Earnings (which adds owner pay back in), the real range likely sits higher than shown here.';
+  }
+
+  var html = '<div class="value-block"><h3>Ballpark value today</h3>' +
+    '<div class="block-caption">A directional range built from your EBITDA, your industry, and how owner-dependent this assessment found the business, not an appraisal.</div>';
+
+  html += '<div class="value-row"><div class="value-row-head"><span class="value-label">Estimated value today</span><span class="value-amount">' + fmtMoney(curLow) + '&ndash;' + fmtMoney(curHigh) + '</span></div>' +
+    '<div class="value-bar-track"><div class="value-bar-fill current" style="width:' + Math.max(4, Math.round((curHigh / fullHigh) * 100)) + '%;"></div></div></div>';
+
+  html += '<div class="value-row"><div class="value-row-head"><span class="value-label">If the owner-dependence gap were fully closed</span><span class="value-amount">' + fmtMoney(fullLow) + '&ndash;' + fmtMoney(fullHigh) + '</span></div>' +
+    '<div class="value-bar-track"><div class="value-bar-fill potential" style="width:100%;"></div></div></div>';
+
+  if (discountPct > 0) {
+    html += '<p class="value-gap-note">That\'s your Readiness Gap: roughly <b>' + fmtMoney(gapLow) + ' to ' + fmtMoney(gapHigh) + '</b>, and it tracks closely with ' + (lowestNames || 'the categories above') + ', the same areas driving your priorities above. We can\'t responsibly project exact revenue or profit growth from a quiz, that takes a real look at the business, but closing this specific gap is what removes this specific discount.</p>';
+  } else {
+    html += '<p class="value-gap-note">At this level of operational readiness, there\'s little to no owner-dependence discount left to close. The bigger lever from here is usually growth, not risk reduction.</p>';
+  }
+
+  html += '<p class="value-sources">Base multiple from the <a href="https://www.ibba.org/wp-content/uploads/2026/02/market-pulse-highlights-q4-2025.pdf" target="_blank" rel="noopener">IBBA &amp; M&amp;A Source Market Pulse, Q4 2025</a>, tilted directionally for industry using published 2026 industry EBITDA-multiple benchmarks. The owner-dependence discount (0&ndash;25%) is modeled on the key-person discount range in Shannon Pratt\'s <i>Business Valuation Discounts and Premiums</i>, scaled to this assessment\'s readiness score.' + earningsCaveat + ' This is a planning-conversation estimate, not a formal valuation.</p>';
+
+  html += '</div>';
+  return html;
+}
+
+function gaugeMarkup() {
+  var cx = 160, cy = 160, r = 120, gap = 1.2, out = '';
+  for (var i = 0; i < 10; i++) {
+    var a1 = (180 - i * 18 - gap) * Math.PI / 180, a2 = (180 - (i + 1) * 18 + gap) * Math.PI / 180;
+    var x1 = cx + r * Math.cos(a1), y1 = cy - r * Math.sin(a1), x2 = cx + r * Math.cos(a2), y2 = cy - r * Math.sin(a2);
+    var color = i < 3 ? 'var(--barn)' : (i < 7 ? 'var(--wheat)' : 'var(--steel)');
+    out += '<path d="M' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' A' + r + ',' + r + ' 0 0 1 ' + x2.toFixed(1) + ',' + y2.toFixed(1) + '" fill="none" stroke="' + color + '" stroke-width="14" opacity="0.85"/>';
+  }
+  return out;
+}
+
+function finish() {
+  var catTotals = {}, catMax = {};
+  Object.keys(categoryMeta).forEach(function (c) { catTotals[c] = 0; catMax[c] = 0; });
+
+  // Each scored question counts equally inside its category, as a fraction from 0 to 1.
+  steps.forEach(function (s) {
+    if (!s.scored) return;
+    if (s.showIf && !s.showIf(answers)) return;
+    catMax[s.cat] += 1;
+    var sc = scoreOf(s.id);
+    if (sc !== null) { catTotals[s.cat] += sc; }
+  });
+
+  // Overall score is a weighted blend of category percentages (see categoryWeights), not a
+  // flat average of every question, so a category worth more to valuation counts for
+  // more of the headline number.
+  var weightPresent = 0, weightedSum = 0;
+  Object.keys(categoryMeta).forEach(function (c) {
+    if (catMax[c] === 0) return;
+    var w = categoryWeights[c] || 0;
+    weightPresent += w;
+    weightedSum += (catTotals[c] / catMax[c]) * w;
+  });
+  var overallFrac = weightPresent > 0 ? (weightedSum / weightPresent) : 0;
+  var overallScore100 = Math.round(overallFrac * 100);
+  var tier = tierFor(overallFrac);
+
+  var narrativeByIntent = {
+    'Sell to a third party in the next one to three years': "Since a sale is the goal, the categories below map fairly directly to what a buyer's diligence team will test first.",
+    'Pass the business to family or an internal successor': "Readiness doesn't mean you're selling. Passing the business to family or an internal successor takes the same groundwork, a business that can run without you, with clean numbers and a real leadership team, just handed to someone you've chosen instead of a stranger.",
+    'Keep running it indefinitely, just want it running better': "Even with no transition planned, this work pays off now: fewer decisions that only you can make, cleaner numbers, and a business that's simpler and more profitable to run today.",
+    'Not sure yet': "Whether this ends in a sale, a family handoff, or nothing at all, the work below is the same. It's worth doing regardless of which way you land."
+  };
+  var narrative = narrativeByIntent[answers.exit_intent] || '';
+  var industryNote = industryNotes[answers.industry] || '';
+
+  var gaugeSvg = '<svg viewBox="0 0 320 190" style="width:100%;max-width:340px;display:block;margin:0 auto;">' +
+    gaugeMarkup() +
+    '<line id="gaugeNeedle" x1="160" y1="160" x2="160" y2="160" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>' +
+    '<circle id="gaugeMarker" cx="40" cy="160" r="8" fill="var(--ink)"/>' +
+    '<circle cx="160" cy="160" r="5" fill="var(--ink)"/>' +
+    '</svg>';
+
+  // ---- One report, shown to the owner and the advisor alike ----
+  var html = '<div class="gauge-wrap">' + gaugeSvg + '<div class="gauge-score">' + overallScore100 + ' / 100</div><div class="gauge-caption">Your Readiness Score</div></div>';
+  html += '<div class="result-tier ' + tier.cls + '">Tier ' + tier.n + ' of 10: ' + tier.name + '</div>';
+  html += '<div class="result-sub">' + (answers.name ? esc(answers.name) + ', h' : 'H') + 'ere\'s the read across ' + Object.keys(categoryMeta).length + ' categories of the business</div>';
+  html += '<p class="result-desc">' + tier.desc + '</p>';
+  if (narrative) html += '<p class="result-narrative">' + narrative + '</p>';
+  html += buildPriorities(catTotals, catMax);
+  html += buildValuation(catTotals, catMax, overallFrac);
+  html += buildQuadrant(catTotals, catMax);
+  html += buildRadar(catTotals, catMax);
+
+  html += '<div class="breakdown"><h3>Full breakdown</h3>';
+  Object.keys(categoryMeta).forEach(function (c) {
+    if (catMax[c] === 0) return;
+    var frac = catTotals[c] / catMax[c];
+    var ct = catTagFor(frac);
+    html += '<div class="cat-row"><div class="cat-row-head"><span class="cat-name">' + categoryMeta[c].name + '</span><span class="cat-tag">' + Math.round(frac * 100) + '% &middot; ' + ct.label + '</span></div>' +
+      '<div class="cat-bar-track"><div class="cat-bar-fill ' + ct.cls + '" style="width:' + Math.round(frac * 100) + '%;"></div></div></div>';
+  });
+  html += '</div>';
+
+  if (industryNote) html += '<p class="result-desc">' + industryNote + '</p>';
+  html += '<p class="result-disclaimer">This is a directional read for a planning conversation, not a formal valuation or appraisal. Real multiples vary by sub-industry, deal structure, and market conditions, and the detailed work happens in the Discovery Call and the Growth Readiness Session below.</p>';
+
+  // ---- Email: same content as the report, in plain text ----
+  var ranked = rankedPriorities(catTotals, catMax).slice(0, 3);
+  var valueLine = '';
+  var ebitdaNum = parseFloat(answers.ebitda);
+  if (!isNaN(ebitdaNum) && ebitdaNum > 0) {
+    var vMult = sizeBandMultiple(ebitdaNum) * (1 + (industryTilt[answers.industry] !== undefined ? industryTilt[answers.industry] : 0));
+    var vDisc = Math.max(0, Math.min(25, Math.round(25 * (1 - overallFrac))));
+    var vLow = ebitdaNum * vMult * 0.85 * (1 - vDisc / 100), vHigh = ebitdaNum * vMult * 1.15 * (1 - vDisc / 100);
+    valueLine = '\nBallpark value today: ' + fmtMoney(vLow) + ' to ' + fmtMoney(vHigh) + ' (directional estimate, not an appraisal)\n';
+  }
+  var mailBody = encodeURIComponent(
+    'Heartland Readiness Assessment results for ' + (answers.name || 'N/A') + ':\n\n' +
+    'Overall score: ' + overallScore100 + '/100, Tier ' + tier.n + ' of 10: ' + tier.name + '\n\n' +
+    'Category scores:\n' +
+    Object.keys(categoryMeta).map(function (c) { return catMax[c] ? '- ' + categoryMeta[c].name + ': ' + Math.round((catTotals[c] / catMax[c]) * 100) + '%' : null; }).filter(Boolean).join('\n') + '\n\n' +
+    'Top priorities:\n' +
+    ranked.map(function (r, i) { return (i + 1) + '. ' + categoryMeta[r.c].name + ' (' + Math.round(r.frac * 100) + '%)'; }).join('\n') + '\n' +
+    valueLine +
+    '\nOwners and investors: ' + (answers.owners || 'n/a') + '\n' +
+    'Industry: ' + (answers.industry || 'n/a') + '\n' +
+    'Revenue range: ' + (answers.revenue_range || 'n/a') + '\n' +
+    'Ideal outcome: ' + (answers.exit_intent || 'n/a') + '\n' +
+    '\nName: ' + (answers.name || '') + '\n' +
+    'Email: ' + (answers.email || '') + '\n' +
+    '\nI\'d like to talk through these results.'
+  );
+  var ccParam = answers.email ? ('&cc=' + encodeURIComponent(answers.email)) : '';
+
+  html += '<p class="result-narrative" style="margin-top:22px;"><b>What happens next.</b> These results are the starting point. If it looks like a fit, a short Discovery Call and a Growth Readiness Session lead to a written Growth &amp; Readiness Blueprint built around your business. It\'s yours to keep, along with more than two hours of free advising.</p>';
+  html += '<div class="result-actions">' +
+    '<a class="btn-primary-lg" href="/#contact">Book a Discovery Call</a>' +
+    '<a class="btn-secondary-lg" href="mailto:info@trueheartlandconsulting.com?subject=My%20Heartland%20Readiness%20Results' + ccParam + '&body=' + mailBody + '">Email me &amp; True Heartland these results</a>' +
+    '<button type="button" class="btn-tertiary" onclick="retake()">Retake</button>' +
+    '</div>';
+
+  document.getElementById('resultPanel').innerHTML = html;
+  document.getElementById('resultPanel').hidden = false;
+  document.getElementById('quizCard').style.display = 'none';
+  document.getElementById('quizNav').style.display = 'none';
+  document.querySelector('.progress-track').style.display = 'none';
+  document.getElementById('progressLabel').parentElement.style.display = 'none';
+  document.getElementById('assessHead').style.display = 'none';
+  setGauge(overallScore100, 100);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>
+
+</body></html>

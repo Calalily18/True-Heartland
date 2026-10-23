@@ -5,6 +5,7 @@ export const SETTINGS_QUERY = defineQuery(`
     title,
     description,
     navigation[]{ _key, label, href },
+    headerCta,
     contactEmail,
     footerText
   }
@@ -18,7 +19,31 @@ export const HOME_PAGE_QUERY = defineQuery(`
     sections[]{
       _key,
       _type,
-      _type == "hero" => { heading, subheading, primaryCta, secondaryCta },
+      _type == "hero" => { ... },
+      _type == "statPillars" => { ... },
+      _type == "threeTracks" => { ... },
+      _type == "readinessGap" => { ... },
+      _type == "situations" => { ... },
+      _type == "assessmentPromo" => { ... },
+      _type == "processSteps" => { ... },
+      _type == "approach" => { ... },
+      _type == "fitSection" => { ... },
+      _type == "rhythmSection" => { ... },
+      _type == "aiSection" => { ... },
+      _type == "contactSection" => { ... },
+      _type == "segmentsSection" => {
+        ...,
+        "services": *[_type == "service" && defined(slug.current)] | order(order asc, title asc){
+          _id, title, shortTitle, "slug": slug.current, friction, fix
+        }
+      },
+      _type == "teamSection" => {
+        ...,
+        "members": members[]->{
+          _id, name, role, photo, bio, personalText,
+          personalPhoto{ ..., "dimensions": asset->metadata.dimensions{ width, height } }
+        }
+      },
       _type == "textSection" => { eyebrow, heading, body },
       _type == "servicesSection" => {
         heading,
