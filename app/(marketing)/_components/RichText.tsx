@@ -15,6 +15,13 @@ const components: PortableTextComponents = {
   },
 };
 
+// Rich text without the article spacing, for paragraphs inside designed sections.
+export function Blocks({ value, className }: { value: BlockContent | null | undefined; className?: string }) {
+  if (!value?.length) return null;
+  const body = <PortableText value={value} components={components} />;
+  return className ? <div className={className}>{body}</div> : body;
+}
+
 export function RichText({ value }: { value: BlockContent | null | undefined }) {
   if (!value?.length) return null;
   return (

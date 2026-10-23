@@ -19,6 +19,7 @@ export const structure: StructureResolver = (S) =>
         .child(S.document().schemaType("aboutPage").documentId("aboutPage")),
       S.divider(),
       S.documentTypeListItem("service").title("Services"),
+      S.documentTypeListItem("teamMember").title("Team"),
       S.documentTypeListItem("post").title("Blog posts"),
       S.divider(),
       S.listItem()
@@ -27,6 +28,6 @@ export const structure: StructureResolver = (S) =>
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       ...S.documentTypeListItems().filter((item) => {
         const id = item.getId();
-        return id && !singletonTypes.has(id) && !["service", "post"].includes(id);
+        return id && !singletonTypes.has(id) && !["service", "teamMember", "post"].includes(id);
       }),
     ]);

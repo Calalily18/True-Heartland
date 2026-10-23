@@ -1,10 +1,21 @@
 import Link from "next/link";
-import type { HOME_PAGE_QUERY_RESULT } from "@/sanity/types";
 import { CtaLink } from "./CtaLink";
 import { RichText } from "./RichText";
-
-type Sections = NonNullable<NonNullable<HOME_PAGE_QUERY_RESULT>["sections"]>;
-type Section<T extends Sections[number]["_type"]> = Extract<Sections[number], { _type: T }>;
+import { AiSection } from "./sections/AiSection";
+import { Approach } from "./sections/Approach";
+import { AssessmentPromo } from "./sections/AssessmentPromo";
+import { ContactSection } from "./sections/ContactSection";
+import { FitSection } from "./sections/FitSection";
+import { Hero } from "./sections/Hero";
+import { ProcessSteps } from "./sections/ProcessSteps";
+import { ReadinessGap } from "./sections/ReadinessGap";
+import { RhythmSection } from "./sections/RhythmSection";
+import { SegmentsSection } from "./sections/SegmentsSection";
+import { Situations } from "./sections/Situations";
+import { StatPillars } from "./sections/StatPillars";
+import { TeamSection } from "./sections/TeamSection";
+import { ThreeTracks } from "./sections/ThreeTracks";
+import type { Section, Sections } from "./sections/types";
 
 // The first hero on a page gets the h1; every other section heading is an h2.
 export function PageBuilder({ sections }: { sections: Sections }) {
@@ -15,6 +26,32 @@ export function PageBuilder({ sections }: { sections: Sections }) {
         switch (section._type) {
           case "hero":
             return <Hero key={section._key} {...section} isPageTitle={section._key === firstHeroKey} />;
+          case "statPillars":
+            return <StatPillars key={section._key} {...section} />;
+          case "threeTracks":
+            return <ThreeTracks key={section._key} {...section} />;
+          case "readinessGap":
+            return <ReadinessGap key={section._key} {...section} />;
+          case "situations":
+            return <Situations key={section._key} {...section} />;
+          case "assessmentPromo":
+            return <AssessmentPromo key={section._key} {...section} />;
+          case "processSteps":
+            return <ProcessSteps key={section._key} {...section} />;
+          case "approach":
+            return <Approach key={section._key} {...section} />;
+          case "fitSection":
+            return <FitSection key={section._key} {...section} />;
+          case "segmentsSection":
+            return <SegmentsSection key={section._key} {...section} />;
+          case "rhythmSection":
+            return <RhythmSection key={section._key} {...section} />;
+          case "aiSection":
+            return <AiSection key={section._key} {...section} />;
+          case "teamSection":
+            return <TeamSection key={section._key} {...section} />;
+          case "contactSection":
+            return <ContactSection key={section._key} {...section} />;
           case "textSection":
             return <TextSection key={section._key} {...section} />;
           case "servicesSection":
@@ -26,24 +63,6 @@ export function PageBuilder({ sections }: { sections: Sections }) {
         }
       })}
     </>
-  );
-}
-
-function Hero({ heading, subheading, primaryCta, secondaryCta, isPageTitle }: Section<"hero"> & { isPageTitle: boolean }) {
-  const Heading = isPageTitle ? "h1" : "h2";
-  return (
-    <section className="section hero">
-      <div className="container">
-        <Heading className="hero-heading">{heading}</Heading>
-        {subheading && <p className="lead">{subheading}</p>}
-        {(primaryCta || secondaryCta) && (
-          <div className="actions">
-            <CtaLink cta={primaryCta} />
-            <CtaLink cta={secondaryCta} variant="secondary" />
-          </div>
-        )}
-      </div>
-    </section>
   );
 }
 

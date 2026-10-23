@@ -18,6 +18,8 @@ Marketing site for True Heartland Consulting, with an assessment tool today and 
 - `sanity/` content schema and Studio config
 - `supabase/migrations/` every database change, as a migration file
 - `e2e/` browser smoke tests
+- `public/assessment.html` the Readiness Assessment, served at `/assessment`; self-contained, scoring runs in the browser and nothing is stored. Its copy and scoring are code, not Sanity content.
+- Home-page sections: one Sanity type per section in `sanity/schemaTypes/blocks/`, rendered by `app/(marketing)/_components/sections/`
 
 ## Commands
 - `npm run dev` start the local dev server

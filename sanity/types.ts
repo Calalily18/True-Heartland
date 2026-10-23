@@ -15,6 +15,42 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
+export type ValueRange = {
+  readyLabel?: string;
+  dependentLabel?: string;
+  low?: number;
+  high?: number;
+  discount?: number;
+  discountLabel?: string;
+};
+
+export type Sample = {
+  title?: string;
+  tag?: string;
+  preparedFor?: string;
+  priorities?: Array<{
+    text: string;
+    shortLabel?: string;
+    start?: number;
+    end?: number;
+    _type: "priority";
+    _key: string;
+  }>;
+  caption?: string;
+};
+
+export type TitledText = {
+  _type: "titledText";
+  title: string;
+  text?: string;
+};
+
+export type Stat = {
+  _type: "stat";
+  value: string;
+  text: string;
+};
+
 export type Seo = {
   _type: "seo";
   title?: string;
@@ -78,18 +114,343 @@ export type TextSection = {
   body?: BlockContent;
 };
 
+export type ContactSection = {
+  _type: "contactSection";
+  heading: string;
+  text?: string;
+  email?: string;
+  cta?: CallToAction;
+  officesLabel?: string;
+  offices?: Array<string>;
+  remoteNote?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type TeamMemberReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "teamMember";
+};
+
+export type TeamSection = {
+  _type: "teamSection";
+  kicker?: string;
+  heading: string;
+  members?: Array<
+    {
+      _key: string;
+    } & TeamMemberReference
+  >;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type AiSection = {
+  _type: "aiSection";
+  kicker?: string;
+  heading: string;
+  intro?: BlockContent;
+  pillarsHeading?: string;
+  pillars?: Array<{
+    label?: string;
+    title: string;
+    stats?: Array<
+      {
+        _key: string;
+      } & Stat
+    >;
+    _type: "aiPillar";
+    _key: string;
+  }>;
+  sources?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type RhythmSection = {
+  _type: "rhythmSection";
+  kicker?: string;
+  heading: string;
+  intro?: BlockContent;
+  pillarsHeading?: string;
+  pillars?: Array<{
+    tag?: string;
+    title: string;
+    text?: string;
+    _type: "rhythmPillar";
+    _key: string;
+  }>;
+  sprintHeading?: string;
+  sprintText?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type SegmentsSection = {
+  _type: "segmentsSection";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  centerLabel?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type FitSection = {
+  _type: "fitSection";
+  kicker?: string;
+  heading: string;
+  intro?: BlockContent;
+  profileHeading?: string;
+  profileBody?: BlockContent;
+  phases?: Array<{
+    label: string;
+    value?: string;
+    text?: string;
+    highlight?: boolean;
+    _type: "phase";
+    _key: string;
+  }>;
+  agnosticHeading?: string;
+  agnosticBody?: BlockContent;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Approach = {
+  _type: "approach";
+  kicker?: string;
+  heading: string;
+  intro?: BlockContent;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  differentiators?: Array<
+    {
+      _key: string;
+    } & TitledText
+  >;
+  mapHeading?: string;
+  mapIntro?: string;
+  zoneLead?: string;
+  zones?: Array<{
+    title: string;
+    subtitle?: string;
+    text?: string;
+    _type: "zone";
+    _key: string;
+  }>;
+  mapCaption?: string;
+  mapClosing?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type ProcessSteps = {
+  _type: "processSteps";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  steps?: Array<{
+    icon?: "checklist" | "phone" | "search" | "document" | "fork";
+    title: string;
+    text?: string;
+    sample?: Sample;
+    _type: "processStep";
+    _key: string;
+  }>;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type AssessmentPromo = {
+  _type: "assessmentPromo";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  resultsHeading?: string;
+  results?: Array<{
+    icon?: "gauge" | "target" | "trend" | "envelope";
+    title: string;
+    text?: string;
+    _type: "resultItem";
+    _key: string;
+  }>;
+  calloutHeading?: string;
+  calloutBody?: BlockContent;
+  cta?: CallToAction;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type Situations = {
+  _type: "situations";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  items?: Array<{
+    title: string;
+    text?: string;
+    statValue?: string;
+    statText?: string;
+    _type: "situation";
+    _key: string;
+  }>;
+  targetLabel?: string;
+  targetTitle?: string;
+  sources?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type ReadinessGap = {
+  _type: "readinessGap";
+  heading: string;
+  currentLabel?: string;
+  currentTitle?: string;
+  goalLabel?: string;
+  goalTitle?: string;
+  rows?: Array<{
+    currentTitle: string;
+    currentText?: string;
+    goalTitle: string;
+    goalText?: string;
+    _type: "gapRow";
+    _key: string;
+  }>;
+  currentImpact?: string;
+  goalImpact?: string;
+  calloutFigure?: string;
+  calloutText?: string;
+  valueRange?: ValueRange;
+  moversHeading?: string;
+  moversIntro?: string;
+  movers?: Array<{
+    label: string;
+    from: number;
+    to: number;
+    valueLabel?: string;
+    _type: "mover";
+    _key: string;
+  }>;
+  moversCaption?: string;
+  sources?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type ThreeTracks = {
+  _type: "threeTracks";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  tracks?: Array<{
+    title: string;
+    text?: string;
+    _type: "track";
+    _key: string;
+  }>;
+  centerLabel?: string;
+  overlapHeading?: string;
+  overlapBody?: BlockContent;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
+export type StatPillars = {
+  _type: "statPillars";
+  kicker?: string;
+  heading: string;
+  intro?: string;
+  pillars?: Array<{
+    title: string;
+    subtitle?: string;
+    stats?: Array<
+      {
+        _key: string;
+      } & Stat
+    >;
+    _type: "pillar";
+    _key: string;
+  }>;
+  sources?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
+};
+
 export type Hero = {
   _type: "hero";
   heading: string;
   subheading?: string;
   primaryCta?: CallToAction;
   secondaryCta?: CallToAction;
+  stats?: Array<
+    {
+      _key: string;
+    } & Stat
+  >;
+  sources?: string;
+  anchorId?: string;
+  background?: "paper" | "paper2" | "ink";
 };
 
 export type PageBuilder = Array<
   | ({
       _key: string;
     } & Hero)
+  | ({
+      _key: string;
+    } & StatPillars)
+  | ({
+      _key: string;
+    } & ThreeTracks)
+  | ({
+      _key: string;
+    } & ReadinessGap)
+  | ({
+      _key: string;
+    } & Situations)
+  | ({
+      _key: string;
+    } & AssessmentPromo)
+  | ({
+      _key: string;
+    } & ProcessSteps)
+  | ({
+      _key: string;
+    } & Approach)
+  | ({
+      _key: string;
+    } & FitSection)
+  | ({
+      _key: string;
+    } & SegmentsSection)
+  | ({
+      _key: string;
+    } & RhythmSection)
+  | ({
+      _key: string;
+    } & AiSection)
+  | ({
+      _key: string;
+    } & TeamSection)
+  | ({
+      _key: string;
+    } & ContactSection)
   | ({
       _key: string;
     } & TextSection)
@@ -100,13 +461,6 @@ export type PageBuilder = Array<
       _key: string;
     } & CtaSection)
 >;
-
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
 
 export type Post = {
   _id: string;
@@ -152,6 +506,35 @@ export type Slug = {
   source?: string;
 };
 
+export type TeamMember = {
+  _id: string;
+  _type: "teamMember";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  role?: string;
+  photo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  bio?: BlockContent;
+  personalPhoto?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "image";
+  };
+  personalText?: string;
+  order?: number;
+};
+
 export type Service = {
   _id: string;
   _type: "service";
@@ -160,7 +543,10 @@ export type Service = {
   _rev: string;
   title: string;
   slug: Slug;
+  shortTitle?: string;
   summary: string;
+  friction?: string;
+  fix?: string;
   body?: BlockContent;
   order?: number;
   seo?: Seo;
@@ -202,6 +588,7 @@ export type SiteSettings = {
       _key: string;
     } & CallToAction
   >;
+  headerCta?: CallToAction;
   contactEmail?: string;
   footerText?: string;
 };
@@ -304,6 +691,10 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | ValueRange
+  | Sample
+  | TitledText
+  | Stat
   | Seo
   | CallToAction
   | BlockContent
@@ -311,13 +702,28 @@ export type AllSanitySchemaTypes =
   | ServiceReference
   | ServicesSection
   | TextSection
+  | ContactSection
+  | TeamMemberReference
+  | TeamSection
+  | AiSection
+  | RhythmSection
+  | SegmentsSection
+  | FitSection
+  | SanityImageAssetReference
+  | Approach
+  | ProcessSteps
+  | AssessmentPromo
+  | Situations
+  | ReadinessGap
+  | ThreeTracks
+  | StatPillars
   | Hero
   | PageBuilder
-  | SanityImageAssetReference
   | Post
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | TeamMember
   | Service
   | AboutPage
   | HomePage
@@ -333,12 +739,21 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_id == "siteSettings"][0]{    title,    description,    navigation[]{ _key, label, href },    contactEmail,    footerText  }
+// Query: *[_id == "siteSettings"][0]{    title,    description,    navigation[]{ _key, label, href },    headerCta,    contactEmail,    footerText  }
 export type SETTINGS_QUERY_RESULT =
+  | {
+      title: null;
+      description: null;
+      navigation: null;
+      headerCta: null;
+      contactEmail: null;
+      footerText: null;
+    }
   | {
       title: string;
       description: null;
       navigation: null;
+      headerCta: null;
       contactEmail: null;
       footerText: null;
     }
@@ -346,6 +761,7 @@ export type SETTINGS_QUERY_RESULT =
       title: string | null;
       description: string | null;
       navigation: null;
+      headerCta: null;
       contactEmail: null;
       footerText: null;
     }
@@ -357,6 +773,7 @@ export type SETTINGS_QUERY_RESULT =
         label: string;
         href: string;
       }> | null;
+      headerCta: CallToAction | null;
       contactEmail: string | null;
       footerText: string | null;
     }
@@ -364,8 +781,14 @@ export type SETTINGS_QUERY_RESULT =
 
 // Source: sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0]{    _id,    title,    seo,    sections[]{      _key,      _type,      _type == "hero" => { heading, subheading, primaryCta, secondaryCta },      _type == "textSection" => { eyebrow, heading, body },      _type == "servicesSection" => {        heading,        intro,        "services": select(          count(services) > 0 => services[]->{ _id, title, "slug": slug.current, summary },          *[_type == "service" && defined(slug.current)] | order(order asc, title asc){            _id, title, "slug": slug.current, summary          }        )      },      _type == "ctaSection" => { heading, body, cta }    }  }
+// Query: *[_id == "homePage"][0]{    _id,    title,    seo,    sections[]{      _key,      _type,      _type == "hero" => { ... },      _type == "statPillars" => { ... },      _type == "threeTracks" => { ... },      _type == "readinessGap" => { ... },      _type == "situations" => { ... },      _type == "assessmentPromo" => { ... },      _type == "processSteps" => { ... },      _type == "approach" => { ... },      _type == "fitSection" => { ... },      _type == "rhythmSection" => { ... },      _type == "aiSection" => { ... },      _type == "contactSection" => { ... },      _type == "segmentsSection" => {        ...,        "services": *[_type == "service" && defined(slug.current)] | order(order asc, title asc){          _id, title, shortTitle, "slug": slug.current, friction, fix        }      },      _type == "teamSection" => {        ...,        "members": members[]->{          _id, name, role, photo, bio, personalText,          personalPhoto{ ..., "dimensions": asset->metadata.dimensions{ width, height } }        }      },      _type == "textSection" => { eyebrow, heading, body },      _type == "servicesSection" => {        heading,        intro,        "services": select(          count(services) > 0 => services[]->{ _id, title, "slug": slug.current, summary },          *[_type == "service" && defined(slug.current)] | order(order asc, title asc){            _id, title, "slug": slug.current, summary          }        )      },      _type == "ctaSection" => { heading, body, cta }    }  }
 export type HOME_PAGE_QUERY_RESULT =
+  | {
+      _id: "homePage";
+      title: null;
+      seo: null;
+      sections: null;
+    }
   | {
       _id: "homePage";
       title: string;
@@ -391,6 +814,95 @@ export type HOME_PAGE_QUERY_RESULT =
       sections: Array<
         | {
             _key: string;
+            _type: "aiSection";
+            kicker?: string;
+            heading: string;
+            intro?: BlockContent;
+            pillarsHeading?: string;
+            pillars?: Array<{
+              label?: string;
+              title: string;
+              stats?: Array<
+                {
+                  _key: string;
+                } & Stat
+              >;
+              _type: "aiPillar";
+              _key: string;
+            }>;
+            sources?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "approach";
+            kicker?: string;
+            heading: string;
+            intro?: BlockContent;
+            image?: {
+              asset?: SanityImageAssetReference;
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt: string;
+              _type: "image";
+            };
+            differentiators?: Array<
+              {
+                _key: string;
+              } & TitledText
+            >;
+            mapHeading?: string;
+            mapIntro?: string;
+            zoneLead?: string;
+            zones?: Array<{
+              title: string;
+              subtitle?: string;
+              text?: string;
+              _type: "zone";
+              _key: string;
+            }>;
+            mapCaption?: string;
+            mapClosing?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "assessmentPromo";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            resultsHeading?: string;
+            results?: Array<{
+              icon?: "envelope" | "gauge" | "target" | "trend";
+              title: string;
+              text?: string;
+              _type: "resultItem";
+              _key: string;
+            }>;
+            calloutHeading?: string;
+            calloutBody?: BlockContent;
+            cta?: CallToAction;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "contactSection";
+            heading: string;
+            text?: string;
+            email?: string;
+            cta?: CallToAction;
+            officesLabel?: string;
+            offices?: Array<string>;
+            remoteNote?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
             _type: "ctaSection";
             heading: string;
             body: string | null;
@@ -398,11 +910,130 @@ export type HOME_PAGE_QUERY_RESULT =
           }
         | {
             _key: string;
+            _type: "fitSection";
+            kicker?: string;
+            heading: string;
+            intro?: BlockContent;
+            profileHeading?: string;
+            profileBody?: BlockContent;
+            phases?: Array<{
+              label: string;
+              value?: string;
+              text?: string;
+              highlight?: boolean;
+              _type: "phase";
+              _key: string;
+            }>;
+            agnosticHeading?: string;
+            agnosticBody?: BlockContent;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
             _type: "hero";
             heading: string;
-            subheading: string | null;
-            primaryCta: CallToAction | null;
-            secondaryCta: CallToAction | null;
+            subheading?: string;
+            primaryCta?: CallToAction;
+            secondaryCta?: CallToAction;
+            stats?: Array<
+              {
+                _key: string;
+              } & Stat
+            >;
+            sources?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "processSteps";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            steps?: Array<{
+              icon?: "checklist" | "document" | "fork" | "phone" | "search";
+              title: string;
+              text?: string;
+              sample?: Sample;
+              _type: "processStep";
+              _key: string;
+            }>;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "readinessGap";
+            heading: string;
+            currentLabel?: string;
+            currentTitle?: string;
+            goalLabel?: string;
+            goalTitle?: string;
+            rows?: Array<{
+              currentTitle: string;
+              currentText?: string;
+              goalTitle: string;
+              goalText?: string;
+              _type: "gapRow";
+              _key: string;
+            }>;
+            currentImpact?: string;
+            goalImpact?: string;
+            calloutFigure?: string;
+            calloutText?: string;
+            valueRange?: ValueRange;
+            moversHeading?: string;
+            moversIntro?: string;
+            movers?: Array<{
+              label: string;
+              from: number;
+              to: number;
+              valueLabel?: string;
+              _type: "mover";
+              _key: string;
+            }>;
+            moversCaption?: string;
+            sources?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "rhythmSection";
+            kicker?: string;
+            heading: string;
+            intro?: BlockContent;
+            pillarsHeading?: string;
+            pillars?: Array<{
+              tag?: string;
+              title: string;
+              text?: string;
+              _type: "rhythmPillar";
+              _key: string;
+            }>;
+            sprintHeading?: string;
+            sprintText?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "segmentsSection";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            centerLabel?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+            services: Array<{
+              _id: string;
+              title: string;
+              shortTitle: string | null;
+              slug: string;
+              friction: string | null;
+              fix: string | null;
+            }>;
           }
         | {
             _key: string;
@@ -418,10 +1049,104 @@ export type HOME_PAGE_QUERY_RESULT =
           }
         | {
             _key: string;
+            _type: "situations";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            items?: Array<{
+              title: string;
+              text?: string;
+              statValue?: string;
+              statText?: string;
+              _type: "situation";
+              _key: string;
+            }>;
+            targetLabel?: string;
+            targetTitle?: string;
+            sources?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "statPillars";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            pillars?: Array<{
+              title: string;
+              subtitle?: string;
+              stats?: Array<
+                {
+                  _key: string;
+                } & Stat
+              >;
+              _type: "pillar";
+              _key: string;
+            }>;
+            sources?: string;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
+            _type: "teamSection";
+            kicker?: string;
+            heading: string;
+            members: Array<{
+              _id: string;
+              name: string;
+              role: string | null;
+              photo: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt: string;
+                _type: "image";
+              } | null;
+              bio: BlockContent | null;
+              personalText: string | null;
+              personalPhoto: {
+                asset?: SanityImageAssetReference;
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt: string;
+                _type: "image";
+                dimensions: {
+                  width: number;
+                  height: number;
+                } | null;
+              } | null;
+            }> | null;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
+          }
+        | {
+            _key: string;
             _type: "textSection";
             eyebrow: string | null;
             heading: string | null;
             body: BlockContent | null;
+          }
+        | {
+            _key: string;
+            _type: "threeTracks";
+            kicker?: string;
+            heading: string;
+            intro?: string;
+            tracks?: Array<{
+              title: string;
+              text?: string;
+              _type: "track";
+              _key: string;
+            }>;
+            centerLabel?: string;
+            overlapHeading?: string;
+            overlapBody?: BlockContent;
+            anchorId?: string;
+            background?: "ink" | "paper" | "paper2";
           }
       > | null;
     }
@@ -431,6 +1156,13 @@ export type HOME_PAGE_QUERY_RESULT =
 // Variable: ABOUT_PAGE_QUERY
 // Query: *[_id == "aboutPage"][0]{ _id, title, intro, body, seo }
 export type ABOUT_PAGE_QUERY_RESULT =
+  | {
+      _id: "aboutPage";
+      title: null;
+      intro: null;
+      body: null;
+      seo: null;
+    }
   | {
       _id: "aboutPage";
       title: string;
@@ -539,8 +1271,8 @@ export type POST_SLUGS_QUERY_RESULT = Array<{
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_id == "siteSettings"][0]{\n    title,\n    description,\n    navigation[]{ _key, label, href },\n    contactEmail,\n    footerText\n  }\n': SETTINGS_QUERY_RESULT;
-    '\n  *[_id == "homePage"][0]{\n    _id,\n    title,\n    seo,\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => { heading, subheading, primaryCta, secondaryCta },\n      _type == "textSection" => { eyebrow, heading, body },\n      _type == "servicesSection" => {\n        heading,\n        intro,\n        "services": select(\n          count(services) > 0 => services[]->{ _id, title, "slug": slug.current, summary },\n          *[_type == "service" && defined(slug.current)] | order(order asc, title asc){\n            _id, title, "slug": slug.current, summary\n          }\n        )\n      },\n      _type == "ctaSection" => { heading, body, cta }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_id == "siteSettings"][0]{\n    title,\n    description,\n    navigation[]{ _key, label, href },\n    headerCta,\n    contactEmail,\n    footerText\n  }\n': SETTINGS_QUERY_RESULT;
+    '\n  *[_id == "homePage"][0]{\n    _id,\n    title,\n    seo,\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => { ... },\n      _type == "statPillars" => { ... },\n      _type == "threeTracks" => { ... },\n      _type == "readinessGap" => { ... },\n      _type == "situations" => { ... },\n      _type == "assessmentPromo" => { ... },\n      _type == "processSteps" => { ... },\n      _type == "approach" => { ... },\n      _type == "fitSection" => { ... },\n      _type == "rhythmSection" => { ... },\n      _type == "aiSection" => { ... },\n      _type == "contactSection" => { ... },\n      _type == "segmentsSection" => {\n        ...,\n        "services": *[_type == "service" && defined(slug.current)] | order(order asc, title asc){\n          _id, title, shortTitle, "slug": slug.current, friction, fix\n        }\n      },\n      _type == "teamSection" => {\n        ...,\n        "members": members[]->{\n          _id, name, role, photo, bio, personalText,\n          personalPhoto{ ..., "dimensions": asset->metadata.dimensions{ width, height } }\n        }\n      },\n      _type == "textSection" => { eyebrow, heading, body },\n      _type == "servicesSection" => {\n        heading,\n        intro,\n        "services": select(\n          count(services) > 0 => services[]->{ _id, title, "slug": slug.current, summary },\n          *[_type == "service" && defined(slug.current)] | order(order asc, title asc){\n            _id, title, "slug": slug.current, summary\n          }\n        )\n      },\n      _type == "ctaSection" => { heading, body, cta }\n    }\n  }\n': HOME_PAGE_QUERY_RESULT;
     '\n  *[_id == "aboutPage"][0]{ _id, title, intro, body, seo }\n': ABOUT_PAGE_QUERY_RESULT;
     '\n  *[_type == "service" && defined(slug.current)] | order(order asc, title asc){\n    _id, title, "slug": slug.current, summary\n  }\n': SERVICES_QUERY_RESULT;
     '\n  *[_type == "service" && slug.current == $slug][0]{\n    _id, title, "slug": slug.current, summary, body, seo\n  }\n': SERVICE_QUERY_RESULT;

@@ -27,6 +27,12 @@ export const siteSettings = defineType({
       of: [defineArrayMember({ type: "callToAction", title: "Menu link" })],
     }),
     defineField({
+      name: "headerCta",
+      title: "Header button",
+      type: "callToAction",
+      description: 'The highlighted button at the end of the menu, for example "Book a call".',
+    }),
+    defineField({
       name: "contactEmail",
       title: "Contact email",
       type: "string",
