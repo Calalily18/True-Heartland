@@ -26,6 +26,14 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Sanity types are up to date
+        run: |
+          npm run typegen
+          git diff --exit-code -- sanity/types.ts sanity/extract.json || {
+            echo "::error::Generated Sanity types are stale. Run 'npm run typegen' and commit the result."
+            exit 1
+          }
+
       - name: Lint
         run: npm run lint
 

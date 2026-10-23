@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Work_Sans } from "next/font/google";
-import "./globals.css";
+
+// Site styles load in app/(marketing)/layout.tsx so they never reach the Studio at /studio.
 
 const newsreader = Newsreader({
   variable: "--font-serif",

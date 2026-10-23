@@ -25,6 +25,8 @@ Marketing site for True Heartland Consulting, with an assessment tool today and 
 - `npm run typecheck` generate route types, then run `tsc --noEmit`
 - `npm run build` production build
 - `npm start` serve the production build
+- `npm run typegen` regenerate `sanity/extract.json` and `sanity/types.ts` after any schema or query change; CI fails if they are stale
+- Node 22.12 or newer is required (see `.nvmrc`)
 - Not yet added: `npm test` (unit tests) and `npm run test:e2e` (browser smoke tests)
 
 ## Rules
