@@ -68,3 +68,229 @@ a {
   outline: 2px solid var(--steel);
   outline-offset: 2px;
 }
+
+/* Layout */
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section-alt {
+  background: var(--paper-2);
+}
+
+.section h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.section h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 42rem;
+}
+
+.eyebrow,
+.meta {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* Header and footer */
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.site-name {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  list-style: none;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a:hover {
+  text-decoration: underline;
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  color: var(--ink-soft);
+}
+
+.site-footer p + p {
+  margin-top: 0.5rem;
+}
+
+.fine-print {
+  font-size: 0.875rem;
+}
+
+/* Sections */
+.hero {
+  padding: 6rem 0 5rem;
+}
+
+.hero-heading {
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  max-width: 48rem;
+  margin-bottom: 1.25rem;
+}
+
+.cta-section {
+  border-top: 2px solid var(--wheat);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+}
+
+.button-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button-secondary {
+  color: var(--ink);
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+  list-style: none;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--wheat);
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
+.card h3,
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card a,
+.card-title a {
+  text-decoration: none;
+}
+
+.card a:hover,
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+.post-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.post-list li + li {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.cover-image {
+  width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+/* Rich text */
+.prose {
+  max-width: 42rem;
+  margin-top: 1.5rem;
+}
+
+.prose > * + * {
+  margin-top: 1rem;
+}
+
+.prose h2 {
+  margin-top: 2rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--wheat);
+  padding-left: 1rem;
+  color: var(--ink-soft);
+}
+
+/* Draft Mode */
+.draft-banner {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 50;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: var(--steel);
+  color: var(--paper);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
