@@ -1,0 +1,70 @@
+/* Brand tokens from the design brief. Wheat is for lines and decoration only, never text. */
+:root {
+  --paper: #efead8;
+  --paper-2: #e7e0c9;
+  --card: #f7f4e9;
+  --ink: #1c2321;
+  --ink-soft: #373a33;
+  --wheat: #c79a3e;
+  --barn: #7a2e1d;
+  --steel: #33475a;
+  --line: #cfc5a4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #191712;
+    --paper-2: #211e17;
+    --card: #211e17;
+    --ink: #efead8;
+    --ink-soft: #c9c3ac;
+    --wheat: #d9ad52;
+    /* Large numerals only in dark mode: 3.72:1 on paper. */
+    --barn: #b4573a;
+    --steel: #7c93a8;
+    --line: #3a3527;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--steel);
+  outline-offset: 2px;
+}
